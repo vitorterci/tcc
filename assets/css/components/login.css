@@ -280,3 +280,15 @@
         text-decoration: underline;
     }
 }
+
+/* Novos Estilos para Ícones de Imagem */
+.formulario__icone-img {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    pointer-events: none;
+}
