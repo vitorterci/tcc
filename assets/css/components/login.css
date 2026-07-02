@@ -249,8 +249,9 @@
 .painel__titulo {
     font-family: var(--font-titulo);
     font-size: 26px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-weight: 700;
+    margin-top: -20px;
 }
 
 .painel__texto {
@@ -258,12 +259,12 @@
     font-weight: 300;
     line-height: 22px;
     letter-spacing: 0.5px;
-    margin: 15px 0 30px;
+    margin: 8px 0 25px;
     opacity: 0.95;
 }
 
 .painel__imagem {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     width: 280px;
     height: 280px;
     display: flex;
