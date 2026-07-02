@@ -73,21 +73,23 @@
     padding: 0 40px;
     height: 100%;
     text-align: center;
+    gap: 12px;
 }
 
 .formulario__titulo {
     font-family: var(--font-titulo);
     font-weight: 700;
-    margin: 0;
+    margin: 0 0 20px 0;
     color: var(--cor-fundo);
-    margin-bottom: 25px;
     font-size: 28px;
 }
 
 .formulario__grupo {
     width: 100%;
     position: relative;
-    margin: 12px 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
 }
 
 .formulario__icone {
@@ -97,6 +99,7 @@
     transform: translateY(-50%);
     color: #333;
     font-size: 14px;
+    display: none;
 }
 
 .formulario__campo {
@@ -110,6 +113,7 @@
     outline: none;
     transition: all 0.3s ease;
     font-size: 14px;
+    box-sizing: border-box;
 }
 
 .formulario__campo:focus {
@@ -134,7 +138,8 @@
     text-transform: uppercase;
     transition: all 0.3s ease;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 15px;
+    width: auto;
 }
 
 .formulario__botao:hover {
@@ -163,8 +168,10 @@
     color: var(--cor-primaria);
     text-decoration: none;
     font-size: 12px;
-    margin-top: 10px;
+    margin-top: 5px;
     transition: color 0.3s ease;
+    width: 100%;
+    text-align: center;
 }
 
 .formulario__link:hover {
@@ -285,12 +292,13 @@
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     object-fit: contain;
     pointer-events: none;
-    opacity: 0.7;
+    opacity: 0.6;
     transition: opacity 0.3s ease;
+    z-index: 1;
 }
 
 .formulario__grupo:focus-within .formulario__icone-img {
@@ -335,11 +343,13 @@
         background: transparent;
         color: var(--cor-primaria);
         border: none;
-        margin-top: 15px;
+        margin-top: 10px;
         text-decoration: underline;
         cursor: pointer;
         font-size: 12px;
         transition: color 0.3s ease;
+        padding: 0;
+        width: auto;
     }
 
     .formulario__botao--mobile:hover {
@@ -368,7 +378,7 @@
     }
 
     .formulario__grupo {
-        margin: 10px 0;
+        margin: 8px 0;
     }
 
     .formulario__campo {
