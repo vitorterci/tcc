@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login e Cadastro | TCC</title>
+    
+    <!-- Estilos Globais -->
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <!-- Estilo Específico do Componente -->
+    <link rel="stylesheet" href="../assets/css/components/login.css">
+    
+    <!-- Font Awesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="corpo-login">
+
+    <main class="autenticacao" id="autenticacao">
+        
+        <!-- Formulário de Cadastro -->
+        <div class="autenticacao__container autenticacao__cadastro">
+            <form action="#" class="formulario formulario--cadastro" id="formulario-cadastro">
+                <h1 class="formulario__titulo" data-i18n="registrar">Criar Conta</h1>
+                
+                <div class="formulario__grupo">
+                    <i class="fa-solid fa-user formulario__icone"></i>
+                    <input type="text" placeholder="Nome Completo" class="formulario__campo" required>
+                </div>
+                
+                <div class="formulario__grupo">
+                    <i class="fa-solid fa-at formulario__icone"></i>
+                    <input type="text" placeholder="Usuário" class="formulario__campo" required>
+                </div>
+                
+                <div class="formulario__grupo">
+                    <i class="fa-solid fa-envelope formulario__icone"></i>
+                    <input type="email" placeholder="E-mail" class="formulario__campo" required>
+                </div>
+                
+                <div class="formulario__grupo">
+                    <i class="fa-solid fa-lock formulario__icone"></i>
+                    <input type="password" placeholder="Senha" class="formulario__campo" required>
+                </div>
+                
+                <div class="formulario__grupo">
+                    <i class="fa-solid fa-shield-halved formulario__icone"></i>
+                    <input type="password" placeholder="Confirmar Senha" class="formulario__campo" required>
+                </div>
+                
+                <button type="submit" class="formulario__botao" data-i18n="registrar">Cadastrar</button>
+                <button type="button" class="formulario__botao--mobile" id="ir-para-login">Já tem conta? Entrar</button>
+            </form>
+        </div>
+
+        <!-- Formulário de Login -->
+        <div class="autenticacao__container autenticacao__login">
+            <form action="#" class="formulario formulario--login" id="formulario-login">
+                <h1 class="formulario__titulo" data-i18n="entrar">Entrar</h1>
+                
+                <div class="formulario__grupo">
+                    <i class="fa-solid fa-user formulario__icone"></i>
+                    <input type="text" placeholder="Usuário ou E-mail" class="formulario__campo" required>
+                </div>
+                
+                <div class="formulario__grupo">
+                    <i class="fa-solid fa-lock formulario__icone"></i>
+                    <input type="password" placeholder="Senha" class="formulario__campo" required>
+                </div>
+                
+                <a href="#" class="formulario__link">Esqueceu sua senha?</a>
+                
+                <button type="submit" class="formulario__botao" data-i18n="entrar">Entrar</button>
+                <button type="button" class="formulario__botao--mobile" id="ir-para-cadastro">Não tem conta? Registrar-se</button>
+            </form>
+        </div>
+
+        <!-- Painel de Sobreposição para Animação -->
+        <div class="autenticacao__sobreposicao-container">
+            <div class="autenticacao__sobreposicao">
+                
+                <!-- Painel Esquerdo (visto no Cadastro) -->
+                <div class="autenticacao__painel autenticacao__painel--esquerda">
+                    <div class="painel__icone">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                    <h2 class="painel__titulo">Bem-vindo de volta!</h2>
+                    <p class="painel__texto">Para manter-se conectado conosco, faça o login com suas informações pessoais</p>
+                    <button class="formulario__botao formulario__botao--fantasma" id="logar">Login</button>
+                </div>
+                
+                <!-- Painel Direito (visto no Login) -->
+                <div class="autenticacao__painel autenticacao__painel--direita">
+                    <div class="painel__icone">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </div>
+                    <h2 class="painel__titulo">Olá, Amigo!</h2>
+                    <p class="painel__texto">Insira seus dados pessoais e comece sua jornada conosco</p>
+                    <button class="formulario__botao formulario__botao--fantasma" id="registrar">Registre-se</button>
+                </div>
+                
+            </div>
+        </div>
+        
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/global.js"></script>
+    <script src="../assets/js/login.js"></script>
+</body>
+</html>

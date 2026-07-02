@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-path" content="../">
+    <title>Game Search — Configurações</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ── Seção de Configurações ── */
+        
+        .secao-config {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            animation: fadeInUp 0.45s ease both;
+        }
+        /* Painel de configuração */
+        
+        .painel-config {
+            background-color: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+        
+        .painel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--cor-borda);
+            background: linear-gradient(to right, rgba(46, 0, 230, 0.1), transparent);
+        }
+        
+        .painel-header i {
+            color: var(--cor-primaria);
+            font-size: var(--fs-base);
+            width: 20px;
+            text-align: center;
+        }
+        
+        .painel-header h2 {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-sm);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .painel-corpo {
+            display: flex;
+            flex-direction: column;
+        }
+        /* Linha de opção */
+        
+        .opcao-config {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--cor-borda);
+            transition: background-color var(--transition-speed) ease;
+        }
+        
+        .opcao-config:last-child {
+            border-bottom: none;
+        }
+        
+        .opcao-config:hover {
+            background-color: rgba(255, 255, 255, 0.025);
+        }
+        
+        .opcao-texto {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        
+        .opcao-titulo {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-base);
+            font-weight: 600;
+            color: var(--cor-texto);
+        }
+        
+        .opcao-descricao {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            color: var(--cor-texto-muted);
+            line-height: 1.4;
+        }
+        /* Toggle Switch */
+        
+        .toggle-wrapper {
+            flex-shrink: 0;
+        }
+        
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        
+        .toggle input {
+            display: none;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background-color: var(--cor-hover);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed) ease;
+            border: 1px solid var(--cor-borda-forte);
+        }
+        
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            left: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--cor-texto-muted);
+            border-radius: 50%;
+            transition: all var(--transition-speed) ease;
+        }
+        
+        .toggle input:checked+.toggle-slider {
+            background-color: var(--cor-primaria);
+            border-color: var(--cor-primaria);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .toggle input:checked+.toggle-slider::before {
+            transform: translateX(20px) translateY(-50%);
+            background-color: #fff;
+        }
+        /* Select estilizado */
+        
+        .select-config {
+            background-color: var(--cor-dropdown);
+            border: 1px solid var(--cor-borda-forte);
+            color: var(--cor-texto);
+            padding: 8px 14px;
+            border-radius: var(--border-radius-sm);
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            min-width: 120px;
+            transition: border-color var(--transition-speed) ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+        }
+        
+        .select-config:hover,
+        .select-config:focus {
+            border-color: var(--cor-primaria);
+        }
+        /* Cor personalizada */
+        
+        .cores-tema {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .bolinha-cor {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all var(--transition-speed) ease;
+            flex-shrink: 0;
+        }
+        
+        .bolinha-cor:hover,
+        .bolinha-cor.ativa {
+            border-color: #fff;
+            transform: scale(1.15);
+        }
+        /* Zona de perigo */
+        
+        .zona-perigo .painel-header {
+            background: linear-gradient(to right, rgba(237, 28, 36, 0.12), transparent);
+            border-bottom-color: rgba(237, 28, 36, 0.2);
+        }
+        
+        .zona-perigo .painel-header i {
+            color: #ed1c24;
+        }
+        
+        .btn-perigo {
+            background-color: transparent;
+            border: 1px solid #ed1c24;
+            color: #ed1c24;
+            padding: 8px 20px;
+            border-radius: var(--border-radius-xl);
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            flex-shrink: 0;
+        }
+        
+        .btn-perigo:hover {
+            background-color: rgba(237, 28, 36, 0.15);
+        }
+        /* Botão de salvar */
+        
+        .barra-salvar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding-bottom: 20px;
+        }
+        /* Toast de confirmação */
+        
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: var(--cor-primaria);
+            color: #fff;
+            padding: 12px 22px;
+            border-radius: var(--border-radius);
+            font-family: var(--font-corpo);
+            font-size: var(--fs-sm);
+            font-weight: 600;
+            box-shadow: var(--shadow-glow);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .toast.visivel {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 600px) {
+            .opcao-config {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .painel-header {
+                padding: 14px 18px;
+            }
+            .opcao-config {
+                padding: 14px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layout-principal">
+
+        <!-- Sidebar -->
+        <aside class="barra-lateral">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo2.png" alt="Game Search">
+            </div>
+            <nav class="menu-navegacao">
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-home"></i><span data-i18n="inicio">Início</span></a></li>
+                    <li><a href="sobre.html"><i class="fas fa-users"></i><span data-i18n="sobre">Sobre nós</span></a></li>
+                    <li><a href="feedback.html"><i class="fas fa-comment-dots"></i><span data-i18n="feedback">Feedback</span></a></li>
+                    <li><a href="Radar de Preços.html"><i class="fas fa-chart-line"></i><span data-i18n="radar">Radar de Preços</span></a></li>
+                    <li class="separador"></li>
+                    <li><a href="perfil.html"><i class="fas fa-user"></i><span data-i18n="perfil">Perfil</span></a></li>
+                    <li class="ativo"><a href="configuracao.html"><i class="fas fa-cog"></i><span data-i18n="configuracoes">Configurações</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Conteúdo -->
+        <main class="conteudo-principal">
+
+            <header class="barra-superior">
+                <div class="container-busca">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="BUSCAR" data-i18n="buscar" class="campo-busca" autocomplete="off">
+                </div>
+            </header>
+
+            <section class="secao-config">
+
+                <h1 class="titulo-secao"><i class="fas fa-cog"></i> <span data-i18n="configuracoes">Configurações</span></h1>
+
+                <!-- Conta -->
+                <div class="painel-config">
+                    <div class="painel-header">
+                        <i class="fas fa-user-circle"></i>
+                        <h2 data-i18n="conta">Conta</h2>
+                    </div>
+                    <div class="painel-corpo">
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo" data-i18n="nome_exibicao">Nome de exibição</span>
+                                <span class="opcao-descricao">Como seu nome aparece para outros usuários</span>
+                            </div>
+                            <select class="select-config">
+                                <option>Público</option>
+                                <option>Privado</option>
+                            </select>
+                        </div>
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo" data-i18n="email">E-mail</span>
+                                <span class="opcao-descricao">usuario@email.com</span>
+                            </div>
+                            <button class="btn-secundario" style="flex-shrink:0" data-i18n="alterar">Alterar</button>
+                        </div>
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo" data-i18n="senha">Senha</span>
+                                <span class="opcao-descricao">Última atualização há mais de 90 dias</span>
+                            </div>
+                            <button class="btn-secundario" style="flex-shrink:0" data-i18n="alterar">Alterar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aparência -->
+                <div class="painel-config">
+                    <div class="painel-header">
+                        <i class="fas fa-palette"></i>
+                        <h2 data-i18n="aparencia">Aparência</h2>
+                    </div>
+                    <div class="painel-corpo">
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo" data-i18n="idioma">Idioma</span>
+                                <span class="opcao-descricao">Idioma da interface do sistema</span>
+                            </div>
+                            <select class="select-config" id="select-idioma">
+                                <option value="pt-BR">Português</option>
+                                <option value="en">English</option>
+                                <option value="es">Español</option>
+                            </select>
+                        </div>
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo" data-i18n="cor_destaque">Cor de destaque</span>
+                                <span class="opcao-descricao">Personaliza botões, links e indicadores ativos</span>
+                            </div>
+                            <div class="cores-tema">
+                                <div class="bolinha-cor" style="background:#2e00e6" title="Azul Índigo" data-cor="#2e00e6"></div>
+                                <div class="bolinha-cor" style="background:#7c3aed" title="Roxo" data-cor="#7c3aed"></div>
+                                <div class="bolinha-cor" style="background:#0ea5e9" title="Azul Céu" data-cor="#0ea5e9"></div>
+                                <div class="bolinha-cor" style="background:#10b981" title="Verde Esmeralda" data-cor="#10b981"></div>
+                                <div class="bolinha-cor" style="background:#f59e0b" title="Âmbar" data-cor="#f59e0b"></div>
+                                <div class="bolinha-cor" style="background:#ef4444" title="Vermelho" data-cor="#ef4444"></div>
+                            </div>
+                        </div>
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo" data-i18n="animacoes">Animações</span>
+                                <span class="opcao-descricao" data-i18n="animacoes_desc">Transições e efeitos de entrada nas páginas</span>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="toggle-animacoes">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="barra-salvar">
+                    <button class="btn-primario" id="btn-salvar" data-i18n="salvar">Salvar alterações</button>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i> <span data-i18n="toast_sucesso">Alterações salvas com sucesso!</span>
+    </div>
+
+    <script src="../assets/js/global.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectIdioma = document.getElementById('select-idioma');
+            const toggleAnimacoes = document.getElementById('toggle-animacoes');
+            const bolinhasCor = document.querySelectorAll('.bolinha-cor');
+            const btnSalvar = document.getElementById('btn-salvar');
+            const toast = document.getElementById('toast');
+
+            // Carregar valores atuais do localStorage
+            const prefIdioma = localStorage.getItem('pref_idioma') || 'pt-BR';
+            const prefAnimacoes = localStorage.getItem('pref_animacoes') !== 'false';
+            const prefCor = localStorage.getItem('pref_cor') || '#2e00e6';
+
+            selectIdioma.value = prefIdioma;
+            toggleAnimacoes.checked = prefAnimacoes;
+            
+            bolinhasCor.forEach(b => {
+                if (b.dataset.cor === prefCor) b.classList.add('ativa');
+                
+                b.addEventListener('click', () => {
+                    bolinhasCor.forEach(bc => bc.classList.remove('ativa'));
+                    b.classList.add('ativa');
+                    // Aplicação imediata para preview
+                    document.documentElement.style.setProperty('--cor-primaria', b.dataset.cor);
+                });
+            });
+
+            // Toggle de animações (preview)
+            toggleAnimacoes.addEventListener('change', (e) => {
+                if (!e.target.checked) {
+                    document.body.classList.add('sem-animacoes');
+                } else {
+                    document.body.classList.remove('sem-animacoes');
+                }
+            });
+
+            // Salvar preferências
+            btnSalvar.addEventListener('click', () => {
+                const novaCor = document.querySelector('.bolinha-cor.ativa').dataset.cor;
+                const novoIdioma = selectIdioma.value;
+                const novasAnimacoes = toggleAnimacoes.checked;
+
+                localStorage.setItem('pref_cor', novaCor);
+                localStorage.setItem('pref_idioma', novoIdioma);
+                localStorage.setItem('pref_animacoes', novasAnimacoes);
+
+                // Aplicar globalmente (já definido no global.js, mas forçamos aqui)
+                if (window.Preferencias) {
+                    window.Preferencias.aplicarTudo();
+                }
+
+                // Toast
+                toast.classList.add('visivel');
+                setTimeout(() => toast.classList.remove('visivel'), 3000);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-path" content="../">
+    <title>Game Search — Radar de Preços</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        /* ── Estilos Específicos da Página Radar ── */
+        
+        .secao-radar {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            animation: fadeInUp 0.45s ease both;
+        }
+        
+        .radar-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+        
+        .stat-card-radar {
+            background: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            user-select: none;
+        }
+        
+        .stat-card-radar:hover {
+            border-color: var(--cor-primaria);
+            background: var(--cor-hover);
+        }
+        
+        .stat-card-radar .label {
+            font-size: var(--fs-xs);
+            color: var(--cor-texto-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .stat-card-radar .number {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-xl);
+            color: var(--cor-primaria);
+            font-weight: 700;
+        }
+        
+        .chart-wrapper {
+            background: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .chart-wrapper h3 {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-sm);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feed-section {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .feed-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .panel-radar {
+            background: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius);
+            padding: 20px;
+        }
+        
+        .panel-radar h4 {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-xs);
+            margin-bottom: 16px;
+            color: var(--cor-texto-muted);
+            text-transform: uppercase;
+        }
+        
+        .feed-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--cor-borda);
+        }
+        
+        .feed-item:last-child {
+            border-bottom: none;
+        }
+        
+        .feed-icon {
+            font-size: 1.2rem;
+        }
+        
+        .feed-content .date {
+            font-size: 0.7rem;
+            color: var(--cor-texto-muted);
+        }
+        
+        .feed-content .desc {
+            font-size: var(--fs-sm);
+            font-weight: 600;
+        }
+        
+        .radar-table-wrapper {
+            background: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-top: 24px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--fs-sm);
+        }
+        
+        th {
+            background: rgba(255, 255, 255, 0.03);
+            text-align: left;
+            padding: 14px 20px;
+            color: var(--cor-texto-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+        }
+        
+        td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--cor-borda);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .badge-var {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.7rem;
+        }
+        
+        .badge-var.down {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+        }
+        
+        .badge-var.up {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+        
+        .filter-bar-radar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        
+        .btn-filter {
+            background: var(--cor-tag);
+            border: 1px solid var(--cor-borda);
+            color: var(--cor-texto-muted);
+            padding: 6px 16px;
+            border-radius: var(--border-radius-xl);
+            font-size: var(--fs-xs);
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+        }
+        
+        .btn-filter.active,
+        .btn-filter:hover {
+            background: var(--cor-primaria);
+            border-color: var(--cor-primaria);
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layout-principal">
+
+        <!-- Sidebar -->
+        <aside class="barra-lateral" id="sidebarDrawer">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo2.png" alt="Game Search">
+            </div>
+            <nav class="menu-navegacao">
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-home"></i><span data-i18n="inicio">Início</span></a></li>
+                    <li><a href="sobre.html"><i class="fas fa-users"></i><span data-i18n="sobre">Sobre nós</span></a></li>
+                    <li><a href="feedback.html"><i class="fas fa-comment-dots"></i><span data-i18n="feedback">Feedback</span></a></li>
+                    <li class="ativo"><a href="Radar de Preços.html"><i class="fas fa-chart-line"></i><span data-i18n="radar">Radar de Preços</span></a></li>
+                    <li class="separador"></li>
+                    <li><a href="perfil.html"><i class="fas fa-user"></i><span data-i18n="perfil">Perfil</span></a></li>
+                    <li><a href="configuracao.html"><i class="fas fa-cog"></i><span data-i18n="configuracoes">Configurações</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Overlay para mobile -->
+        <div class="drawer-overlay" id="drawerOverlay"></div>
+
+        <!-- Conteúdo -->
+        <main class="conteudo-principal">
+
+            <header class="barra-superior">
+                <div class="container-busca">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="BUSCAR JOGO PARA MONITORAR" data-i18n="buscar" id="searchInput" class="campo-busca" autocomplete="off">
+                </div>
+            </header>
+
+            <section class="secao-radar">
+                <div class="radar-header">
+                    <h2 class="titulo-secao"><i class="fas fa-satellite-dish"></i> <span data-i18n="radar">Radar Gamer</span></h2>
+                </div>
+
+                <!-- Estatísticas -->
+                <div class="radar-stats">
+                    <div class="stat-card-radar card-expansivel">
+                        <div class="cabecalho-expansivel">
+                            <div class="label">Promoções Ativas <i class="fas fa-chevron-down icone-expansao"></i></div>
+                            <div class="number">152</div>
+                        </div>
+                        <div class="conteudo-expansivel">
+                            <div class="interno-expansivel">
+                                <p style="font-size: var(--fs-xs); color: var(--cor-texto-muted); margin-top: 8px;">
+                                    Jogos com desconto ativo nas últimas 24h.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card-radar card-expansivel">
+                        <div class="cabecalho-expansivel">
+                            <div class="label">Quedas de Preço <i class="fas fa-chevron-down icone-expansao"></i></div>
+                            <div class="number">87</div>
+                        </div>
+                        <div class="conteudo-expansivel">
+                            <div class="interno-expansivel">
+                                <p style="font-size: var(--fs-xs); color: var(--cor-texto-muted); margin-top: 8px;">
+                                    Títulos que atingiram o menor preço da semana.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card-radar card-expansivel">
+                        <div class="cabecalho-expansivel">
+                            <div class="label">Aumentos Recentes <i class="fas fa-chevron-down icone-expansao"></i></div>
+                            <div class="number">34</div>
+                        </div>
+                        <div class="conteudo-expansivel">
+                            <div class="interno-expansivel">
+                                <p style="font-size: var(--fs-xs); color: var(--cor-texto-muted); margin-top: 8px;">
+                                    Jogos que voltaram ao preço original ou subiram.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card-radar card-expansivel">
+                        <div class="cabecalho-expansivel">
+                            <div class="label">Removidos <i class="fas fa-chevron-down icone-expansao"></i></div>
+                            <div class="number">12</div>
+                        </div>
+                        <div class="conteudo-expansivel">
+                            <div class="interno-expansivel">
+                                <p style="font-size: var(--fs-xs); color: var(--cor-texto-muted); margin-top: 8px;">
+                                    Títulos que não estão mais disponíveis para venda.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráfico -->
+                <div class="chart-wrapper">
+                    <h3><i class="fas fa-chart-line"></i> Histórico de Preço Médio</h3>
+                    <div style="height: 250px;">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Feed e Notificações -->
+                <div class="feed-section">
+                    <div class="panel-radar">
+                        <h4><i class="fas fa-newspaper"></i> Feed de Alterações</h4>
+                        <div id="feedContainer">
+                            <div class="feed-item">
+                                <span class="feed-icon">📉</span>
+                                <div class="feed-content">
+                                    <div class="date">Hoje, 14:23</div>
+                                    <div class="desc">Cyberpunk 2077 caiu para R$89,90</div>
+                                </div>
+                            </div>
+                            <div class="feed-item">
+                                <span class="feed-icon">📈</span>
+                                <div class="feed-content">
+                                    <div class="date">Hoje, 11:10</div>
+                                    <div class="desc">GTA V aumentou para R$119,90</div>
+                                </div>
+                            </div>
+                            <div class="feed-item">
+                                <span class="feed-icon">🔥</span>
+                                <div class="feed-content">
+                                    <div class="date">Ontem, 22:05</div>
+                                    <div class="desc">Elden Ring em promoção (-40%)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-radar">
+                        <h4><i class="fas fa-bell"></i> Notificações</h4>
+                        <div id="notifContainer">
+                            <div class="feed-item">
+                                <span class="feed-icon">🔔</span>
+                                <div class="feed-content">
+                                    <div class="date">2 horas atrás</div>
+                                    <div class="desc">Novo menor preço histórico</div>
+                                </div>
+                            </div>
+                            <div class="feed-item">
+                                <span class="feed-icon">⏳</span>
+                                <div class="feed-content">
+                                    <div class="date">5 horas atrás</div>
+                                    <div class="desc">Promoção termina em breve</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtros e Tabela -->
+                <div class="radar-table-section">
+                    <div class="filter-bar-radar">
+                        <button class="btn-filter active" data-filter="all">Todos</button>
+                        <button class="btn-filter" data-filter="promo">Promoções</button>
+                        <button class="btn-filter" data-filter="aumento">Aumentos</button>
+                        <button class="btn-filter" data-filter="queda">Quedas</button>
+                        <button class="btn-filter" data-filter="assinatura">Assinaturas</button>
+                    </div>
+
+                    <div class="radar-table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Jogo</th>
+                                    <th>Plataforma</th>
+                                    <th>Preço Atual</th>
+                                    <th>Variação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <tr data-category="queda">
+                                    <td>Cyberpunk 2077</td>
+                                    <td>Steam</td>
+                                    <td>R$89,90</td>
+                                    <td><span class="badge-var down">↓ 15%</span></td>
+                                </tr>
+                                <tr data-category="promo">
+                                    <td>Elden Ring</td>
+                                    <td>Steam</td>
+                                    <td>R$179,90</td>
+                                    <td><span class="badge-var down">↓ 8%</span></td>
+                                </tr>
+                                <tr data-category="aumento">
+                                    <td>GTA V</td>
+                                    <td>Epic</td>
+                                    <td>R$119,90</td>
+                                    <td><span class="badge-var up">↑ 20%</span></td>
+                                </tr>
+                                <tr data-category="assinatura">
+                                    <td>Hollow Knight</td>
+                                    <td>Game Pass</td>
+                                    <td>Grátis</td>
+                                    <td><span class="badge-var">🎮</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Botão Hambúrguer para Mobile -->
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script src="../assets/js/global.js"></script>
+    <script>
+        // ---- gráfico Chart.js ----
+        const renderChart = () => {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            const corPrimaria = getComputedStyle(document.documentElement).getPropertyValue('--cor-primaria').trim();
+            const corRGB = getComputedStyle(document.documentElement).getPropertyValue('--cor-primaria-rgb').trim() || '46, 0, 230';
+
+            const gradient = ctx.createLinearGradient(0, 0, 0, 250);
+            gradient.addColorStop(0, `rgba(${corRGB}, 0.4)`);
+            gradient.addColorStop(1, `rgba(${corRGB}, 0.05)`);
+
+            if (window.myChart) window.myChart.destroy();
+
+            window.myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                    datasets: [{
+                        label: 'Preço médio (R$)',
+                        data: [299, 279, 249, 199, 229, 179],
+                        borderColor: corPrimaria,
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: corPrimaria,
+                        pointRadius: 4,
+                        tension: 0.3,
+                        fill: true,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: 'rgba(255, 255, 255, 0.5)' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: 'rgba(255, 255, 255, 0.5)' }
+                        }
+                    }
+                }
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', renderChart);
+        // Re-renderizar se a cor mudar (opcional para feedback em tempo real na config, mas aqui garante a cor correta no load)
+        window.addEventListener('load', renderChart);
+
+        // ---- filtros dinâmicos ----
+        const filterBtns = document.querySelectorAll('.btn-filter');
+        const tableRows = document.querySelectorAll('#tableBody tr');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                tableRows.forEach(row => {
+                    const cat = row.dataset.category;
+                    row.style.display = (filter === 'all' || cat === filter) ? '' : 'none';
+                });
+            });
+        });
+
+        // ---- busca simples ----
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const q = this.value.toLowerCase();
+            tableRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(q) ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+
+</html>
