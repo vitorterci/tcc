@@ -55,15 +55,69 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Validação básica de formulário (apenas visual)
-    const formularios = document.querySelectorAll('.formulario');
-    formularios.forEach(form => {
-        form.addEventListener('submit', (e) => {
+    // Integração com o Backend MySQL via Fetch API
+    const formCadastro = document.getElementById('formulario-cadastro');
+    const formLogin = document.getElementById('formulario-login');
+
+    if (formCadastro) {
+        formCadastro.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const tipo = form.classList.contains('formulario--login') ? 'Login' : 'Cadastro';
-            console.log(`${tipo} submetido com sucesso!`);
+            const campos = formCadastro.querySelectorAll('.formulario__campo');
+            const nome = campos[0].value;
+            const email = campos[2].value;
+            const senha = campos[3].value;
+            const confirmarSenha = campos[4].value;
+
+            if (senha !== confirmarSenha) {
+                alert('As senhas não coincidem!');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/usuarios/registrar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, email, senha })
+                });
+                const data = await response.json();
+                alert(data.message);
+                if (data.message === "Você foi registrado com sucesso!") {
+                    ativarLogin();
+                }
+            } catch (error) {
+                console.error('Erro ao registrar:', error);
+                alert('Erro ao conectar com o servidor.');
+            }
         });
-    });
+    }
+
+    if (formLogin) {
+        formLogin.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const campos = formLogin.querySelectorAll('.formulario__campo');
+            const email = campos[0].value;
+            const senha = campos[1].value;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/usuarios/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, senha })
+                });
+                const data = await response.json();
+                if (data.user) {
+                    localStorage.setItem('usuarioLogado', JSON.stringify(data.user));
+                    alert('Login realizado com sucesso!');
+                    window.location.href = '../index.html';
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error('Erro ao logar:', error);
+                alert('Erro ao conectar com o servidor.');
+            }
+        });
+    }
 
     // Eventos de Filtro
     document.querySelectorAll('.botao-filtro-principal').forEach(botao => {
