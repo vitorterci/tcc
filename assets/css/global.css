@@ -66,7 +66,8 @@
              body {
                  margin: 0;
                  min-height: 100vh;
-                 background: linear-gradient(#2a2a4ad7, #2a2a4a22), url("../img/fundo/Neon\ lines\ motion.webp");
+                 background: #0d0d1f; /* Fallback color */
+                 background-image: none;
                  background-size: cover;
                  background-position: center;
                  background-repeat: no-repeat;
