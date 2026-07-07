@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login e Cadastro | TCC</title>
+    
+    <!-- Estilos Globais -->
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <!-- Estilo Específico do Componente -->
+    <link rel="stylesheet" href="../assets/css/components/login.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="corpo-login">
+
+    <div class="layout-principal">
+
+        <!-- Sidebar -->
+        <aside class="barra-lateral" id="sidebarDrawer">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo2.png" alt="Game Search">
+            </div>
+            
+            <!-- Navegação Principal -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Navegação Principal</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="../index.html"><i class="fas fa-home"></i><span>Início</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- Informações -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Informações</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="sobre.html"><i class="fas fa-users"></i><span>Sobre nós</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- Usuário -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Usuário</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li class="ativo"><a href="login.html"><i class="fas fa-sign-in-alt"></i><span>Entrar</span></a></li>
+                        <li><a href="perfil.html"><i class="fas fa-user"></i><span>Perfil</span></a></li>
+                        <li><a href="configuracao.html"><i class="fas fa-cog"></i><span>Configurações</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- Suporte -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Suporte</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="contato.html"><i class="fas fa-envelope"></i><span>Contato</span></a></li>
+                        <li><a href="ajuda.html"><i class="fas fa-question-circle"></i><span>Ajuda</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Overlay para fechar o drawer -->
+        <div class="drawer-overlay" id="drawerOverlay"></div>
+
+        <!-- Conteúdo -->
+        <main class="conteudo-principal">
+
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="Navegação">
+                <a href="../index.html"><i class="fas fa-home"></i> Início</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Autenticação</span>
+            </nav>
+
+            <!-- Barra de Filtros -->
+            <section class="secao-filtros" aria-label="Filtros de autenticação">
+                <div class="barra-filtro">
+                    <button class="botao-filtro-principal ativo" data-menu="menu-etaria" aria-haspopup="true">
+                        <i class="fas fa-shield-alt"></i> Faixa Etária
+                    </button>
+                    <button class="botao-filtro-principal" data-menu="menu-ano" aria-haspopup="true">
+                        <i class="fas fa-calendar"></i> Ano
+                    </button>
+                    <button class="botao-filtro-principal" data-menu="menu-preco" aria-haspopup="true">
+                        <i class="fas fa-dollar-sign"></i> Preço
+                    </button>
+
+                    <div id="menu-etaria" class="menu-flutuante" role="menu">
+                        <button class="opcao-filtro selecionada" data-filtro="todos">Todos</button>
+                        <button class="opcao-filtro" data-filtro="L">L</button>
+                        <button class="opcao-filtro" data-filtro="10">10+</button>
+                        <button class="opcao-filtro" data-filtro="12">12+</button>
+                        <button class="opcao-filtro" data-filtro="14">14+</button>
+                        <button class="opcao-filtro" data-filtro="16">16+</button>
+                        <button class="opcao-filtro" data-filtro="18">18+</button>
+                    </div>
+
+                    <div id="menu-ano" class="menu-flutuante" role="menu">
+                        <button class="opcao-filtro selecionada" data-filtro="todos">Todos</button>
+                        <button class="opcao-filtro" data-filtro="2024">2024</button>
+                        <button class="opcao-filtro" data-filtro="2023">2023</button>
+                        <button class="opcao-filtro" data-filtro="2022">2022</button>
+                        <button class="opcao-filtro" data-filtro="2021">2021</button>
+                        <button class="opcao-filtro" data-filtro="2020">2020</button>
+                        <button class="opcao-filtro" data-filtro="anterior">Anterior</button>
+                    </div>
+
+                    <div id="menu-preco" class="menu-flutuante" role="menu">
+                        <button class="opcao-filtro selecionada" data-filtro="todos">Todos</button>
+                        <button class="opcao-filtro" data-filtro="gratis">Grátis</button>
+                        <button class="opcao-filtro" data-filtro="ate50">Até R$ 50</button>
+                        <button class="opcao-filtro" data-filtro="50-100">R$ 50 - R$ 100</button>
+                        <button class="opcao-filtro" data-filtro="100-200">R$ 100 - R$ 200</button>
+                        <button class="opcao-filtro" data-filtro="acima200">Acima de R$ 200</button>
+                    </div>
+                </div>
+            </section>
+
+            <main class="autenticacao" id="autenticacao">
+                
+                <!-- Formulário de Cadastro -->
+                <div class="autenticacao__container autenticacao__cadastro">
+                    <form action="#" class="formulario formulario--cadastro" id="formulario-cadastro">
+                        <h1 class="formulario__titulo">Criar Conta</h1>
+                        
+                        <div class="formulario__grupo">
+                            <img src="../assets/img/registre.png" alt="Usuário" class="formulario__icone-img">
+                            <input type="text" placeholder="Nome Completo" class="formulario__campo" required>
+                        </div>
+                        
+                        <div class="formulario__grupo">
+                            <img src="../assets/img/registre.png" alt="Usuário" class="formulario__icone-img">
+                            <input type="text" placeholder="Usuário" class="formulario__campo" required>
+                        </div>
+                        
+                        <div class="formulario__grupo">
+                            <img src="../assets/img/registre.png" alt="E-mail" class="formulario__icone-img">
+                            <input type="email" placeholder="E-mail" class="formulario__campo" required>
+                        </div>
+                        
+                        <div class="formulario__grupo">
+                            <img src="../assets/img/registre.png" alt="Senha" class="formulario__icone-img">
+                            <input type="password" placeholder="Senha" class="formulario__campo" required>
+                        </div>
+                        
+                        <div class="formulario__grupo">
+                            <img src="../assets/img/registre.png" alt="Confirmar Senha" class="formulario__icone-img">
+                            <input type="password" placeholder="Confirmar Senha" class="formulario__campo" required>
+                        </div>
+                        
+                        <button type="submit" class="formulario__botao">Cadastrar</button>
+                        <button type="button" class="formulario__botao--mobile" id="ir-para-login">Já tem conta? Entrar</button>
+                    </form>
+                </div>
+
+                <!-- Formulário de Login -->
+                <div class="autenticacao__container autenticacao__login">
+                    <form action="#" class="formulario formulario--login" id="formulario-login">
+                        <h1 class="formulario__titulo">Entrar</h1>
+                        
+                        <div class="formulario__grupo">
+                            <img src="../assets/img/login.png" alt="Usuário" class="formulario__icone-img">
+                            <input type="text" placeholder="Usuário ou E-mail" class="formulario__campo" required>
+                        </div>
+                        
+                        <div class="formulario__grupo">
+                            <img src="../assets/img/login.png" alt="Senha" class="formulario__icone-img">
+                            <input type="password" placeholder="Senha" class="formulario__campo" required>
+                        </div>
+                        
+                        <a href="#" class="formulario__link">Esqueceu sua senha?</a>
+                        
+                        <button type="submit" class="formulario__botao">Entrar</button>
+                        <button type="button" class="formulario__botao--mobile" id="ir-para-cadastro">Não tem conta? Registrar-se</button>
+                    </form>
+                </div>
+
+                <!-- Painel de Sobreposição para Animação -->
+                <div class="autenticacao__sobreposicao-container">
+                    <div class="autenticacao__sobreposicao">
+                        
+                        <!-- Painel Esquerdo (visto no Cadastro) -->
+                        <div class="autenticacao__painel autenticacao__painel--esquerda">
+                            <div class="painel__imagem">
+                                <img src="../assets/img/login.png" alt="Login">
+                            </div>
+                            <h2 class="painel__titulo">Bem-vindo de volta!</h2>
+                            <p class="painel__texto">Para manter-se conectado conosco, faça o login com suas informações pessoais</p>
+                            <button class="formulario__botao formulario__botao--fantasma" id="logar">Login</button>
+                        </div>
+                        
+                        <!-- Painel Direito (visto no Login) -->
+                        <div class="autenticacao__painel autenticacao__painel--direita">
+                            <div class="painel__imagem">
+                                <img src="../assets/img/registre.png" alt="Registre-se">
+                            </div>
+                            <h2 class="painel__titulo">Olá, Amigo!</h2>
+                            <p class="painel__texto">Insira seus dados pessoais e comece sua jornada conosco</p>
+                            <button class="formulario__botao formulario__botao--fantasma" id="registrar">Registre-se</button>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </main>
+
+        </main>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+        <div class="rodape__container">
+            <div class="rodape__secao">
+                <h3 class="rodape__titulo">Game Search</h3>
+                <p class="rodape__descricao">Sua plataforma completa para descobrir e acompanhar os melhores jogos do mercado.</p>
+                <div class="rodape__sociais">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="rodape__secao">
+                <h4 class="rodape__subtitulo">Navegação</h4>
+                <ul class="rodape__links">
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="sobre.html">Sobre Nós</a></li>
+                    <li><a href="perfil.html">Perfil</a></li>
+                    <li><a href="configuracao.html">Configurações</a></li>
+                </ul>
+            </div>
+
+            <div class="rodape__secao">
+                <h4 class="rodape__subtitulo">Suporte</h4>
+                <ul class="rodape__links">
+                    <li><a href="#">Contato</a></li>
+                    <li><a href="#">Ajuda</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                    <li><a href="#">Termos de Uso</a></li>
+                </ul>
+            </div>
+
+            <div class="rodape__secao">
+                <h4 class="rodape__subtitulo">Informações</h4>
+                <ul class="rodape__links">
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Novidades</a></li>
+                    <li><a href="#">Parceiros</a></li>
+                    <li><a href="#">Carreiras</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="rodape__bottom">
+            <p>&copy; 2024 Game Search. Todos os direitos reservados.</p>
+            <p>Desenvolvido com <i class="fas fa-heart"></i> para gamers</p>
+        </div>
+    </footer>
+
+    <!-- Botão Hambúrguer para Mobile -->
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="../assets/js/global.js"></script>
+    <script src="../assets/js/login.js"></script>
+</body>
+</html>

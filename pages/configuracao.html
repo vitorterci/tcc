@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-path" content="../">
+    <title>Game Search — Configurações</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ── Seção de Configurações ── */
+        
+        .secao-config {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            animation: fadeInUp 0.45s ease both;
+        }
+        /* Painel de configuração */
+        
+        .painel-config {
+            background-color: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+        
+        .painel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--cor-borda);
+            background: linear-gradient(to right, rgba(46, 0, 230, 0.1), transparent);
+        }
+        
+        .painel-header i {
+            color: var(--cor-primaria);
+            font-size: var(--fs-base);
+            width: 20px;
+            text-align: center;
+        }
+        
+        .painel-header h2 {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-sm);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .painel-corpo {
+            display: flex;
+            flex-direction: column;
+        }
+        /* Linha de opção */
+        
+        .opcao-config {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--cor-borda);
+            transition: background-color var(--transition-speed) ease;
+        }
+        
+        .opcao-config:last-child {
+            border-bottom: none;
+        }
+        
+        .opcao-config:hover {
+            background-color: rgba(255, 255, 255, 0.025);
+        }
+        
+        .opcao-texto {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        
+        .opcao-titulo {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-base);
+            font-weight: 600;
+            color: var(--cor-texto);
+        }
+        
+        .opcao-descricao {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            color: var(--cor-texto-muted);
+            line-height: 1.4;
+        }
+        /* Toggle Switch */
+        
+        .toggle-wrapper {
+            flex-shrink: 0;
+        }
+        
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        
+        .toggle input {
+            display: none;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background-color: var(--cor-hover);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed) ease;
+            border: 1px solid var(--cor-borda-forte);
+        }
+        
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            left: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--cor-texto-muted);
+            border-radius: 50%;
+            transition: all var(--transition-speed) ease;
+        }
+        
+        .toggle input:checked+.toggle-slider {
+            background-color: var(--cor-primaria);
+            border-color: var(--cor-primaria);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .toggle input:checked+.toggle-slider::before {
+            transform: translateX(20px) translateY(-50%);
+            background-color: #fff;
+        }
+        /* Select estilizado */
+        
+        .select-config {
+            background-color: var(--cor-dropdown);
+            border: 1px solid var(--cor-borda-forte);
+            color: var(--cor-texto);
+            padding: 8px 14px;
+            border-radius: var(--border-radius-sm);
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            min-width: 120px;
+            transition: border-color var(--transition-speed) ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+        }
+        
+        .select-config:hover,
+        .select-config:focus {
+            border-color: var(--cor-primaria);
+        }
+        /* ── SELETOR DE CORES ── */
+        
+        .cores-tema {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .bolinha-cor {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all var(--transition-speed) ease;
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .bolinha-cor:hover {
+            transform: scale(1.15);
+        }
+        
+        .bolinha-cor.ativa {
+            border-color: #fff;
+            transform: scale(1.15);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        .bolinha-cor.ativa::after {
+            content: '✓';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+        }
+        /* Preview da cor ativa */
+        
+        .preview-cor {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: 8px;
+        }
+        
+        .preview-cor .amostra {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid var(--cor-borda-forte);
+            transition: background-color var(--transition-speed) ease;
+        }
+        
+        .preview-cor .codigo-hex {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            color: var(--cor-texto-muted);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        /* Botão reset de cor */
+        
+        .btn-reset-cor {
+            background: none;
+            border: none;
+            color: var(--cor-texto-muted);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: var(--border-radius-sm);
+            transition: all var(--transition-speed) ease;
+            font-size: var(--fs-sm);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.5;
+        }
+        
+        .btn-reset-cor:hover {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            opacity: 1;
+        }
+        /* ── Zona de perigo ── */
+        
+        .zona-perigo .painel-header {
+            background: linear-gradient(to right, rgba(237, 28, 36, 0.12), transparent);
+            border-bottom-color: rgba(237, 28, 36, 0.2);
+        }
+        
+        .zona-perigo .painel-header i {
+            color: #ed1c24;
+        }
+        
+        .btn-perigo {
+            background-color: transparent;
+            border: 1px solid #ed1c24;
+            color: #ed1c24;
+            padding: 8px 20px;
+            border-radius: var(--border-radius-xl);
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            flex-shrink: 0;
+        }
+        
+        .btn-perigo:hover {
+            background-color: rgba(237, 28, 36, 0.15);
+        }
+        /* Botão de salvar */
+        
+        .barra-salvar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding-bottom: 20px;
+        }
+        /* Toast de confirmação */
+        
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: var(--cor-primaria);
+            color: #fff;
+            padding: 12px 22px;
+            border-radius: var(--border-radius);
+            font-family: var(--font-corpo);
+            font-size: var(--fs-sm);
+            font-weight: 600;
+            box-shadow: var(--shadow-glow);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .toast.visivel {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 600px) {
+            .opcao-config {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .painel-header {
+                padding: 14px 18px;
+            }
+            .opcao-config {
+                padding: 14px 18px;
+            }
+            .cores-tema {
+                gap: 8px;
+            }
+            .bolinha-cor {
+                width: 28px;
+                height: 28px;
+            }
+            .preview-cor {
+                margin-left: 0;
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layout-principal">
+
+        <!-- Sidebar -->
+        <aside class="barra-lateral" id="sidebarDrawer">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo2.png" alt="Game Search">
+            </div>
+
+            <!-- Navegação Principal -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Navegação Principal</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="../index.html"><i class="fas fa-home"></i><span>Início</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Informações -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Informações</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="sobre.html"><i class="fas fa-users"></i><span>Sobre nós</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Usuário -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Usuário</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i><span>Entrar</span></a></li>
+                        <li><a href="perfil.html"><i class="fas fa-user"></i><span>Perfil</span></a></li>
+                        <li class="ativo"><a href="configuracao.html"><i class="fas fa-cog"></i><span>Configurações</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Suporte -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Suporte</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="contato.html"><i class="fas fa-envelope"></i><span>Contato</span></a></li>
+                        <li><a href="ajuda.html"><i class="fas fa-question-circle"></i><span>Ajuda</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Overlay para mobile -->
+        <div class="drawer-overlay" id="drawerOverlay"></div>
+
+        <!-- Conteúdo -->
+        <main class="conteudo-principal">
+
+            <header class="barra-superior">
+                <div class="container-busca">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="BUSCAR" class="campo-busca" autocomplete="off">
+                </div>
+            </header>
+
+            <section class="secao-config">
+                <h1 class="titulo-secao"><i class="fas fa-cog"></i> <span>Configurações</span></h1>
+                <div class="barra-salvar">
+                    <button class="btn-primario" id="btn-salvar"><i class="fas fa-save"></i> Salvar alterações</button>
+                </div>
+
+
+                <!-- Conta -->
+                <div class="painel-config">
+                    <div class="painel-header">
+                        <i class="fas fa-user-circle"></i>
+                        <h2>Conta</h2>
+                    </div>
+                    <div class="painel-corpo">
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">Nome de exibição</span>
+                                <span class="opcao-descricao">Como seu nome aparece para outros usuários</span>
+                            </div>
+                            <select class="select-config">
+                                <option>Público</option>
+                                <option>Privado</option>
+                            </select>
+                        </div>
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">E-mail</span>
+                                <span class="opcao-descricao">usuario@email.com</span>
+                            </div>
+                            <button class="btn-secundario" style="flex-shrink:0">Alterar</button>
+                        </div>
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">Senha</span>
+                                <span class="opcao-descricao">Última atualização há mais de 90 dias</span>
+                            </div>
+                            <button class="btn-secundario" style="flex-shrink:0">Alterar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aparência -->
+                <div class="painel-config">
+                    <div class="painel-header">
+                        <i class="fas fa-palette"></i>
+                        <h2>Aparência</h2>
+                    </div>
+                    <div class="painel-corpo">
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">Cor de destaque</span>
+                                <span class="opcao-descricao">Personaliza botões, links e indicadores ativos</span>
+                            </div>
+                            <div class="cores-tema" id="seletorCores">
+                                <!-- Cores pré-definidas -->
+                                <div class="bolinha-cor" style="background:#2e00e6" data-cor="#2e00e6" title="Índigo"></div>
+                                <div class="bolinha-cor" style="background:#7c3aed" data-cor="#7c3aed" title="Roxo"></div>
+                                <div class="bolinha-cor" style="background:#0ea5e9" data-cor="#0ea5e9" title="Azul Céu"></div>
+                                <div class="bolinha-cor" style="background:#10b981" data-cor="#10b981" title="Verde Esmeralda"></div>
+                                <div class="bolinha-cor" style="background:#f59e0b" data-cor="#f59e0b" title="Âmbar"></div>
+                                <div class="bolinha-cor" style="background:#ef4444" data-cor="#ef4444" title="Vermelho"></div>
+                                <div class="bolinha-cor" style="background:#ec4899" data-cor="#ec4899" title="Rosa"></div>
+                                <div class="bolinha-cor" style="background:#14b8a6" data-cor="#14b8a6" title="Teal"></div>
+                                <div class="bolinha-cor" style="background:#f97316" data-cor="#f97316" title="Laranja"></div>
+
+                                <!-- Preview da cor selecionada -->
+                                <div class="preview-cor">
+                                    <span class="amostra" id="previewAmostra" style="background:#2e00e6;"></span>
+                                    <span class="codigo-hex" id="previewHex">#2e00e6</span>
+                                    <button class="btn-reset-cor" id="btnResetCor" title="Resetar para cor padrão">
+                                        <i class="fas fa-undo-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">Animações</span>
+                                <span class="opcao-descricao">Transições e efeitos de entrada nas páginas</span>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="toggle-animacoes">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zona de Perigo -->
+                <div class="painel-config zona-perigo">
+                    <div class="painel-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h2>Área de Risco</h2>
+                    </div>
+                    <div class="painel-corpo">
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">Excluir conta</span>
+                                <span class="opcao-descricao">Remove permanentemente sua conta e todos os dados</span>
+                            </div>
+                            <button class="btn-perigo">Excluir conta</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i> <span id="toastMensagem">Alterações salvas com sucesso!</span>
+    </div>
+
+    <!-- Botão Hambúrguer para Mobile -->
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script src="../assets/js/global.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ── Elementos ──
+            const toggleAnimacoes = document.getElementById('toggle-animacoes');
+            const bolinhasCor = document.querySelectorAll('.bolinha-cor');
+            const previewAmostra = document.getElementById('previewAmostra');
+            const previewHex = document.getElementById('previewHex');
+            const btnResetCor = document.getElementById('btnResetCor');
+            const btnSalvar = document.getElementById('btn-salvar');
+            const toast = document.getElementById('toast');
+            const toastMensagem = document.getElementById('toastMensagem');
+
+            // ── Constantes ──
+            const COR_PADRAO = '#2e00e6';
+
+            // ── Funções Auxiliares ──
+            function hexParaRgb(hex) {
+                const resultado = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return resultado ? {
+                    r: parseInt(resultado[1], 16),
+                    g: parseInt(resultado[2], 16),
+                    b: parseInt(resultado[3], 16)
+                } : null;
+            }
+
+            function aplicarCorPreview(cor) {
+                // Atualiza a amostra
+                previewAmostra.style.backgroundColor = cor;
+                previewHex.textContent = cor;
+
+                // Atualiza as bolinhas
+                bolinhasCor.forEach(b => {
+                    b.classList.toggle('ativa', b.dataset.cor === cor);
+                });
+
+                // Aplica a cor em tempo real (preview)
+                document.documentElement.style.setProperty('--cor-primaria', cor);
+                const rgb = hexParaRgb(cor);
+                if (rgb) {
+                    const rgbStr = `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+                    document.documentElement.style.setProperty('--cor-primaria-rgb', rgbStr);
+                    document.documentElement.style.setProperty('--shadow-glow', `0 0 20px rgba(${rgbStr}, 0.25)`);
+                    document.documentElement.style.setProperty('--shadow-glow-hover', `0 0 35px rgba(${rgbStr}, 0.45)`);
+                }
+            }
+
+            function carregarPreferencias() {
+                // Carregar cor
+                const corSalva = localStorage.getItem('pref_cor') || COR_PADRAO;
+                aplicarCorPreview(corSalva);
+
+                // Carregar animações
+                const animacoesAtivas = localStorage.getItem('pref_animacoes') !== 'false';
+                toggleAnimacoes.checked = animacoesAtivas;
+                if (!animacoesAtivas) {
+                    document.body.classList.add('sem-animacoes');
+                } else {
+                    document.body.classList.remove('sem-animacoes');
+                }
+            }
+
+            function mostrarToast(mensagem) {
+                toastMensagem.textContent = mensagem || 'Alterações salvas com sucesso!';
+                toast.classList.add('visivel');
+                clearTimeout(toast._timeout);
+                toast._timeout = setTimeout(() => toast.classList.remove('visivel'), 3000);
+            }
+
+            // ── Eventos das bolinhas de cor ──
+            bolinhasCor.forEach(b => {
+                b.addEventListener('click', () => {
+                    const cor = b.dataset.cor;
+                    aplicarCorPreview(cor);
+                });
+            });
+
+            // ── Resetar cor ──
+            btnResetCor.addEventListener('click', () => {
+                aplicarCorPreview(COR_PADRAO);
+                mostrarToast('Cor restaurada para o padrão');
+            });
+
+            // ── Toggle de animações ──
+            toggleAnimacoes.addEventListener('change', (e) => {
+                if (!e.target.checked) {
+                    document.body.classList.add('sem-animacoes');
+                } else {
+                    document.body.classList.remove('sem-animacoes');
+                }
+            });
+
+            // ── Salvar preferências ──
+            btnSalvar.addEventListener('click', () => {
+                // Pega a cor atualmente selecionada
+                const corAtiva = document.querySelector('.bolinha-cor.ativa');
+                const novaCor = corAtiva ? corAtiva.dataset.cor : COR_PADRAO;
+                const novasAnimacoes = toggleAnimacoes.checked;
+
+                // Salva no localStorage
+                localStorage.setItem('pref_cor', novaCor);
+                localStorage.setItem('pref_animacoes', novasAnimacoes);
+
+                // Aplica globalmente via objeto Preferencias (definido em global.js)
+                if (window.Preferencias) {
+                    window.Preferencias.aplicarTudo();
+                }
+
+                // Mostra toast de confirmação
+                mostrarToast('Preferências salvas com sucesso!');
+
+                // Feedback visual no botão
+                btnSalvar.innerHTML = '<i class="fas fa-check"></i> Salvo!';
+                setTimeout(() => {
+                    btnSalvar.innerHTML = '<i class="fas fa-save"></i> Salvar alterações';
+                }, 2000);
+            });
+
+            // ── Inicialização ──
+            carregarPreferencias();
+
+            // ── Fechar toast ao clicar ──
+            toast.addEventListener('click', () => {
+                toast.classList.remove('visivel');
+            });
+        });
+    </script>
+</body>
+
+</html>

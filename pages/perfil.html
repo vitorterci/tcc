@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-path" content="../">
+    <title>Game Search — Perfil</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ── Seção de Perfil ── */
+        
+        .secao-perfil {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            animation: fadeInUp 0.45s ease both;
+        }
+        /* Breadcrumb */
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            color: var(--cor-texto-muted);
+            letter-spacing: 0.06em;
+            margin-bottom: 4px;
+        }
+        
+        .breadcrumb a {
+            color: var(--cor-texto-muted);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--cor-primaria);
+        }
+        
+        .breadcrumb i {
+            font-size: 0.6rem;
+        }
+        
+        .breadcrumb span {
+            color: var(--cor-texto);
+        }
+        /* Cabeçalho do perfil */
+        
+        .perfil-header {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            background-color: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius);
+            padding: 24px 28px;
+            box-shadow: var(--shadow-card);
+        }
+        
+        .avatar-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .avatar-circulo {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-primaria-hover));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: var(--shadow-glow);
+            border: 3px solid rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.4);
+        }
+        
+        .btn-editar-avatar {
+            position: absolute;
+            bottom: -2px;
+            right: -6px;
+            width: 28px;
+            height: 28px;
+            background-color: var(--cor-lateral);
+            border: 2px solid var(--cor-primaria);
+            border-radius: 50%;
+            color: var(--cor-primaria);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            transition: all var(--transition-speed) ease;
+        }
+        
+        .btn-editar-avatar:hover {
+            background-color: var(--cor-primaria);
+            color: #fff;
+        }
+        
+        .perfil-info {
+            flex: 1;
+        }
+        
+        .perfil-nome {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-xl);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
+        }
+        
+        .perfil-stats {
+            display: flex;
+            gap: 24px;
+            margin-top: 10px;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .stat-valor {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-lg);
+            font-weight: 700;
+            color: var(--cor-primaria);
+        }
+        
+        .stat-label {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            color: var(--cor-texto-muted);
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        /* Abas */
+        
+        .perfil-abas {
+            display: flex;
+            gap: 4px;
+            background-color: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius-xl);
+            padding: 5px;
+            width: fit-content;
+        }
+        
+        .aba-btn {
+            background: none;
+            border: none;
+            color: var(--cor-texto-muted);
+            padding: 8px 22px;
+            border-radius: var(--border-radius-xl);
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: lowercase;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+        }
+        
+        .aba-btn:hover {
+            color: var(--cor-texto);
+        }
+        
+        .aba-btn.ativo {
+            background-color: var(--cor-primaria);
+            color: #fff;
+            box-shadow: var(--shadow-glow);
+        }
+        /* Lista de jogos */
+        
+        .lista-jogos-perfil {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .item-jogo-perfil {
+            background-color: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius);
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            animation: fadeInUp 0.4s ease both;
+        }
+        
+        .item-jogo-perfil:hover {
+            transform: translateX(6px);
+            background-color: var(--cor-hover);
+            border-color: rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.3);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .info-jogo-min {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+        }
+        
+        .img-jogo-min {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--border-radius-sm);
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid var(--cor-borda);
+        }
+        
+        .nome-jogo-min {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-base);
+            font-weight: 600;
+            color: var(--cor-texto);
+        }
+        
+        .categoria-jogo-min {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            color: var(--cor-texto-muted);
+            text-transform: lowercase;
+        }
+        
+        .progresso-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: flex-end;
+            min-width: 130px;
+        }
+        
+        .progresso-pct {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-sm);
+            font-weight: 700;
+            color: var(--cor-primaria);
+        }
+        
+        .barra-progresso-min {
+            width: 120px;
+            height: 5px;
+            background-color: var(--cor-fundo);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progresso-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--cor-primaria), var(--cor-primaria-hover));
+            border-radius: 3px;
+            transition: width 0.8s ease;
+        }
+        /* Estado vazio */
+        
+        .estado-vazio {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--cor-texto-muted);
+        }
+        
+        .estado-vazio i {
+            font-size: 2.5rem;
+            color: rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.4);
+            margin-bottom: 12px;
+            display: block;
+        }
+        
+        .estado-vazio p {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-base);
+            letter-spacing: 0.08em;
+        }
+        
+        @media (max-width: 600px) {
+            .perfil-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .perfil-stats {
+                justify-content: center;
+            }
+            .progresso-wrapper {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layout-principal">
+
+        <!-- Sidebar -->
+        <aside class="barra-lateral" id="sidebarDrawer">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo2.png" alt="Game Search">
+            </div>
+
+            <!-- Navegacao Principal -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Navegacao Principal</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="../index.html"><i class="fas fa-home"></i><span>Inicio</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Informacoes -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Informacoes</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="sobre.html"><i class="fas fa-users"></i><span>Sobre nos</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Usuario -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Usuario</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i><span>Entrar</span></a></li>
+                        <li class="ativo"><a href="perfil.html"><i class="fas fa-user"></i><span>Perfil</span></a></li>
+                        <li><a href="configuracao.html"><i class="fas fa-cog"></i><span>Configuracoes</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Suporte -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Suporte</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="contato.html"><i class="fas fa-envelope"></i><span>Contato</span></a></li>
+                        <li><a href="ajuda.html"><i class="fas fa-question-circle"></i><span>Ajuda</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Overlay para mobile -->
+        <div class="drawer-overlay" id="drawerOverlay"></div>
+
+        <!-- Conteúdo -->
+        <main class="conteudo-principal">
+
+            <header class="barra-superior">
+                <div class="container-busca">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="BUSCAR" class="campo-busca" autocomplete="off">
+                </div>
+            </header>
+
+            <section class="secao-perfil">
+
+                <!-- Breadcrumb -->
+                <nav class="breadcrumb" aria-label="Navegação">
+                    <a href="../index.html"><i class="fas fa-home"></i> Início</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>Perfil</span>
+                </nav>
+
+                <!-- Header do perfil -->
+                <div class="perfil-header">
+                    <div class="avatar-wrapper">
+                        <div class="avatar-circulo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <button class="btn-editar-avatar" title="Editar foto">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="perfil-info">
+                        <h1 class="perfil-nome">Nome do Usuário</h1>
+                        <div class="perfil-stats">
+                            <div class="stat-item">
+                                <span class="stat-valor">2</span>
+                                <span class="stat-label">Jogos</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-valor">63%</span>
+                                <span class="stat-label">Progresso</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-valor">0</span>
+                                <span class="stat-label">Conquistas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abas -->
+                <div class="perfil-abas" role="tablist">
+                    <button class="aba-btn ativo" data-aba="meus">meus jogos</button>
+                    <button class="aba-btn" data-aba="desejos">desejos</button>
+                    <button class="aba-btn" data-aba="conquistas">conquistas</button>
+                </div>
+
+                <!-- Lista de jogos -->
+                <h2 class="titulo-secao"><i class="fas fa-gamepad"></i> <span>Meus Jogos</span></h2>
+
+                <div class="lista-jogos-perfil" id="lista-perfil">
+
+                    <div class="item-jogo-perfil" onclick="location.href='pagina.html'">
+                        <div class="info-jogo-min">
+                            <img src="https://st.perplexity.ai/estatic/0b226c450798410ac541646c86ec31afd840e5beab817a5d84fa821e7db61981ec84c3b4a3f072a7a2e1899c9fb06c6ee32ee51b7aa5df0a674cb1dd5564173b8403cd1fe49f606a7bca981a435a0298c0e277b3e347d804e1fd8f174238ecbabc0c67f9a4782a8581638776010f023d"
+                                alt="Minecraft" class="img-jogo-min" onerror="this.src='../assets/img/naoencontrada.png'">
+                            <div>
+                                <p class="nome-jogo-min">Minecraft</p>
+                                <p class="categoria-jogo-min">indie · sandbox</p>
+                            </div>
+                        </div>
+                        <div class="progresso-wrapper">
+                            <span class="progresso-pct">85%</span>
+                            <div class="barra-progresso-min">
+                                <div class="progresso-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-jogo-perfil" onclick="location.href='pagina.html'">
+                        <div class="info-jogo-min">
+                            <img src="https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/5734a2c4-a123-51ba-858d-fc6d6e14aee0/01a84265-e09c-5682-92ce-681c89a1afe2.jpg" alt="Towerborne" class="img-jogo-min" onerror="this.src='../assets/img/naoencontrada.png'">
+                            <div>
+                                <p class="nome-jogo-min">Towerborne</p>
+                                <p class="categoria-jogo-min">ação · xbox</p>
+                            </div>
+                        </div>
+                        <div class="progresso-wrapper">
+                            <span class="progresso-pct">40%</span>
+                            <div class="barra-progresso-min">
+                                <div class="progresso-fill" style="width: 40%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <!-- Botão Hambúrguer para Mobile -->
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script src="../assets/js/global.js"></script>
+    <script>
+        // Lógica das abas
+        document.querySelectorAll('.aba-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.aba-btn').forEach(b => b.classList.remove('ativo'));
+                btn.classList.add('ativo');
+            });
+        });
+    </script>
+</body>
+
+</html>
