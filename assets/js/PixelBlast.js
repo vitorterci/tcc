@@ -331,10 +331,11 @@ class PixelBlast {
 // Auto-initialize if THREE is available
 if (typeof THREE !== 'undefined') {
     document.addEventListener('DOMContentLoaded', () => {
+        const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--cor-primaria').trim() || '#2e00e6';
         window.pixelBlast = new PixelBlast({
             variant: 'square',
             pixelSize: 5,
-            color: '#B497CF',
+            color: primaryColor,
             patternScale: 8,
             patternDensity: 1,
             pixelSizeJitter: 1.85,
