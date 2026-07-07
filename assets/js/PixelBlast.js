@@ -288,6 +288,30 @@ class PixelBlast {
         }
 
         this.animate();
+        this.watchColorChange();
+    }
+
+    watchColorChange() {
+        // Observer to detect changes in the :root style (where --cor-primaria is usually defined)
+        const observer = new MutationObserver(() => {
+            const newColor = getComputedStyle(document.documentElement).getPropertyValue('--cor-primaria').trim();
+            if (newColor && this.uniforms.uColor.value.getHex() !== new THREE.Color(newColor).getHex()) {
+                this.uniforms.uColor.value.set(newColor);
+            }
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['style', 'class']
+        });
+
+        // Also check periodically just in case (some theme changes don't trigger mutation on :root)
+        setInterval(() => {
+            const newColor = getComputedStyle(document.documentElement).getPropertyValue('--cor-primaria').trim();
+            if (newColor && this.uniforms.uColor.value.getHex() !== new THREE.Color(newColor).getHex()) {
+                this.uniforms.uColor.value.set(newColor);
+            }
+        }, 1000);
     }
 
     setSize() {
