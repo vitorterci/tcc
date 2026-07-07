@@ -6,6 +6,14 @@
              /* ─── GOOGLE FONTS ──────────────────────────────────────────────────────────── */
              
              @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+             /* ─── LOCAL FONTS ───────────────────────────────────────────────────────────── */
+             @font-face {
+                 font-family: 'Game Paused';
+                 src: url('../fonts/game-paused.otf') format('opentype');
+                 font-weight: normal;
+                 font-style: normal;
+             }
              /* ─── CSS RESET & BASE ──────────────────────────────────────────────────────── */
              
              html {
@@ -33,8 +41,8 @@
                  --cor-borda: rgba(255, 255, 255, 0.08);
                  --cor-borda-forte: rgba(255, 255, 255, 0.15);
                  /* Tipografia */
-                 --font-titulo: 'Cinzel', serif;
-                 --font-corpo: 'Open Sans', sans-serif;
+                 --font-titulo: 'Game Paused', sans-serif;
+                 --font-corpo: 'Game Paused', sans-serif;
                  /* Tamanhos de fonte */
                  --fs-xs: 0.7rem;
                  --fs-sm: 0.8rem;
