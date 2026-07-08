@@ -9,6 +9,12 @@
 
              /* ─── LOCAL FONTS ───────────────────────────────────────────────────────────── */
              @font-face {
+                 font-family: 'Dogica';
+                 src: url('../fonts/dogica.ttf') format('truetype');
+                 font-weight: normal;
+                 font-style: normal;
+             }
+             @font-face {
                  font-family: 'Game Paused';
                  src: url('../fonts/game-paused.otf') format('opentype');
                  font-weight: normal;
@@ -41,8 +47,8 @@
                  --cor-borda: rgba(255, 255, 255, 0.08);
                  --cor-borda-forte: rgba(255, 255, 255, 0.15);
                  /* Tipografia */
-                 --font-titulo: 'Game Paused', sans-serif;
-                 --font-corpo: 'Game Paused', sans-serif;
+                 --font-titulo: 'Dogica', sans-serif;
+                 --font-corpo: 'Dogica', sans-serif;
                  /* Tamanhos de fonte */
                  --fs-xs: 0.7rem;
                  --fs-sm: 0.8rem;
