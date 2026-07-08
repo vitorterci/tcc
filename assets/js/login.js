@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                const response = await fetch('http://localhost:5000/api/usuarios/registrar', {
+                const response = await fetch('http://localhost/php_backend/register.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ nome, email, senha })
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const senha = campos[1].value;
 
             try {
-                const response = await fetch('http://localhost:5000/api/usuarios/login', {
+                const response = await fetch('http://localhost/php_backend/login.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, senha })

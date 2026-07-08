@@ -6,7 +6,7 @@ let listaDeJogos = [];
 // Função para carregar jogos do backend MySQL
 async function carregarJogos() {
     try {
-        const response = await fetch('http://localhost:5000/api/jogos');
+        const response = await fetch('http://localhost/php_backend/games.php');
         listaDeJogos = await response.json();
         aplicarFiltros();
     } catch (error) {
