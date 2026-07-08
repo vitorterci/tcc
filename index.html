@@ -8,7 +8,6 @@
     <title>Game Search — Início</title>
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/PixelBlast.css">
-    <link rel="stylesheet" href="assets/css/home-moderna.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ── Destaque Hero ── */
@@ -460,219 +459,68 @@
             transition: opacity 0.45s ease;
         }
         
-        .card-jogo.open .card-jogo-content {
-            display: flex;
-            opacity: 1;
-        }
-        /* Título */
-        
         .card-jogo-titulo {
             font-family: var(--font-titulo);
             font-size: var(--fs-md);
             font-weight: 700;
-            letter-spacing: 0.06em;
-            color: #fff;
-            margin: 0 0 6px 0;
+            color: var(--cor-texto);
+            margin-bottom: 8px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        /* Descrição */
+        
+        .card-jogo-meta {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: var(--fs-xs);
+            color: var(--cor-texto-muted);
+        }
         
         .card-jogo-descricao {
-            font-family: var(--font-corpo);
-            font-size: var(--fs-sm);
-            color: rgba(255, 255, 255, 0.75);
+            font-size: var(--fs-xs);
+            color: var(--cor-texto);
             line-height: 1.5;
-            margin: 0 0 10px 0;
+            margin-bottom: 20px;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis;
         }
-        /* Info tags */
-        
-        .card-jogo-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px 10px;
-            margin-bottom: 12px;
-        }
-        
-        .info-tag {
-            font-family: var(--font-corpo);
-            font-size: var(--fs-xs);
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.7);
-            background: rgba(255, 255, 255, 0.06);
-            padding: 2px 10px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            letter-spacing: 0.03em;
-        }
-        
-        .info-tag i {
-            font-size: 0.7rem;
-            opacity: 0.6;
-        }
-        
-        .info-status {
-            background: rgba(46, 0, 230, 0.15);
-            border-color: rgba(46, 0, 230, 0.2);
-        }
-        
-        .status-disponivel {
-            color: #4ade80;
-        }
-        
-        .status-disponivel i {
-            color: #4ade80;
-        }
-        
-        .status-em-breve {
-            color: #facc15;
-        }
-        
-        .status-em-breve i {
-            color: #facc15;
-        }
-        /* Botão detalhes */
         
         .botao-detalhes {
-            align-self: flex-start;
-            background: var(--cor-primaria);
-            color: var(--cor-texto);
+            background-color: var(--cor-primaria);
+            color: #fff;
             border: none;
-            border-radius: var(--border-radius-xl);
-            padding: 6px 18px;
+            padding: 10px 20px;
+            border-radius: var(--border-radius-sm);
             font-family: var(--font-corpo);
             font-weight: 700;
             font-size: var(--fs-xs);
-            letter-spacing: 0.05em;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: auto;
+            transition: background var(--transition-fast) ease;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
         
         .botao-detalhes:hover {
-            background: var(--cor-primaria-hover);
-            box-shadow: var(--shadow-glow);
-            transform: translateY(-2px);
+            background-color: var(--cor-primaria-hover);
         }
+        /* ── Animação de Entrada ── */
         
-        .botao-detalhes i {
-            font-size: 0.7rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .botao-detalhes:hover i {
-            transform: translateX(3px);
-        }
-        /* ── Responsividade ── */
-        
-        @media (max-width: 900px) {
-            .carousel-wrapper {
-                display: none;
-            }
-            .destaque {
-                justify-content: center;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .destaque {
-                flex-direction: column;
-                text-align: center;
-            }
-            .logo-principal {
-                width: 200px;
-            }
-            .menu-flutuante {
-                min-width: 260px;
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .card-jogo {
-                min-height: 180px;
-                max-height: 260px;
-                flex-direction: column;
-            }
-            .card-jogo-sidebar {
-                flex: 0 0 100px;
-                width: 100%;
-                height: 100px;
-            }
-            .card-jogo-clone.expandido-clone {
-                flex-direction: column;
-            }
-            .card-jogo-clone.expandido-clone .card-jogo-sidebar {
-                flex: 0 0 140px;
-                height: 140px;
-                width: 100%;
-            }
-            .card-jogo-clone.expandido-clone .card-jogo-content {
-                padding: 16px 20px;
-            }
-            .card-jogo-titulo {
-                font-size: var(--fs-sm);
-            }
-            .card-jogo-descricao {
-                font-size: var(--fs-xs);
-                -webkit-line-clamp: 2;
-            }
-            .info-tag {
-                font-size: 0.6rem;
-                padding: 1px 8px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .grade-jogos {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 14px;
-            }
-            .card-jogo {
-                min-height: 160px;
-                max-height: 220px;
-            }
-            .card-jogo-sidebar {
-                flex: 0 0 80px;
-                height: 80px;
-            }
-            .card-jogo-clone.expandido-clone .card-jogo-sidebar {
-                flex: 0 0 120px;
-                height: 120px;
-            }
-            .card-jogo-clone.expandido-clone .card-jogo-content {
-                padding: 12px 16px;
-            }
-            .card-jogo-info {
-                gap: 4px 8px;
-            }
-            .info-tag {
-                font-size: 0.55rem;
-                padding: 1px 6px;
-            }
-            .botao-detalhes {
-                font-size: 0.6rem;
-                padding: 4px 12px;
-            }
-        }
-        /* ── Animação de entrada ── */
-        
-        .animar-entrada {
+        .card-jogo {
             opacity: 0;
             transform: translateY(20px);
-            animation: entradaCard 0.5s ease forwards;
         }
         
-        @keyframes entradaCard {
+        .card-jogo.animar-entrada {
+            animation: cardEntrada 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        
+        @keyframes cardEntrada {
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -682,263 +530,166 @@
 </head>
 
 <body>
-    <!-- Splash Screen -->
-    <div id="splash-screen">
-        <img src="assets/img/logo.png" alt="Logo" class="splash-logo">
-    </div>
-
-    <!-- Cursor Gamer -->
-    <div class="cursor-gamer"></div>
-    <div class="cursor-follower"></div>
-
-    <!-- Background Animado -->
-    <canvas id="bg-canvas"></canvas>
-
     <div class="layout-principal">
-        <!-- Hero Section Moderna -->
-        <section class="hero-moderna fade-in">
-            <h1 class="hero-titulo">Game Search</h1>
-            <div class="texto-rotativo">
-                <span class="typing-text"></span>
-            </div>
-            <p style="color: var(--cor-texto-muted); max-width: 600px;">Explore milhares de títulos, acompanhe lançamentos e encontre sua próxima grande experiência gamer em um só lugar.</p>
-        </section>
-
-        <!-- Carrossel de Logotipos -->
-        <div class="logos-container fade-in">
-            <div class="logos-track">
-                <!-- Logos (Duplicados para loop infinito) -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg" alt="PlayStation" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg" alt="Xbox" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" alt="Steam" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Epic_Games_logo.svg" alt="Epic Games" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Electronic_Arts_logo.svg" alt="EA" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Ubisoft_logo.svg" alt="Ubisoft" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/en/2/23/Battle.net_Logo.svg" alt="Battle.net" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Nintendo_logo.svg" alt="Nintendo" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Discord_Color_Text_Logo.svg" alt="Discord" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Rockstar_Games_Logo.svg" alt="Rockstar" class="logo-item">
-                <!-- Duplicate for loop -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg" alt="PlayStation" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg" alt="Xbox" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" alt="Steam" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Epic_Games_logo.svg" alt="Epic Games" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Electronic_Arts_logo.svg" alt="EA" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Ubisoft_logo.svg" alt="Ubisoft" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/en/2/23/Battle.net_Logo.svg" alt="Battle.net" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Nintendo_logo.svg" alt="Nintendo" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Discord_Color_Text_Logo.svg" alt="Discord" class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Rockstar_Games_Logo.svg" alt="Rockstar" class="logo-item">
-            </div>
-        </div>
-
         <!-- Sidebar -->
         <aside class="barra-lateral" id="sidebarDrawer">
             <div class="sidebar-logo">
-                <img src="assets/img/logo2.png" alt="Game Search">
-
+                <img src="assets/img/logo.png" alt="Logo Game Search">
+                <span>Game Search</span>
             </div>
 
-            <!-- Navegação Principal -->
             <div class="sidebar-secao">
-                <h3 class="sidebar-titulo">Navegação Principal</h3>
+                <h3 class="sidebar-titulo">Menu</h3>
                 <nav class="menu-navegacao">
                     <ul>
-                        <li class="ativo"><a href="index.html"><i class="fas fa-home"></i><span>Início</span></a></li>
+                        <li class="ativo"><a href="index.html"><i class="fas fa-home"></i> <span>Início</span></a></li>
+                        <li><a href="pages/sobre.html"><i class="fas fa-info-circle"></i> <span>Sobre</span></a></li>
+                        <li><a href="pages/feedback.html"><i class="fas fa-comment-dots"></i> <span>Feedback</span></a></li>
                     </ul>
                 </nav>
             </div>
 
-            <!-- Informações -->
-            <div class="sidebar-secao">
-                <h3 class="sidebar-titulo">Informações</h3>
-                <nav class="menu-navegacao">
-                    <ul>
-                        <li><a href="pages/sobre.html"><i class="fas fa-users"></i><span>Sobre nós</span></a></li>
-                    </ul>
-                </nav>
-            </div>
+            <div class="separador"></div>
 
-            <!-- Usuário -->
             <div class="sidebar-secao">
                 <h3 class="sidebar-titulo">Usuário</h3>
                 <nav class="menu-navegacao">
                     <ul>
-                        <li><a href="pages/login.html"><i class="fas fa-sign-in-alt"></i><span>Entrar</span></a></li>
-                        <li><a href="pages/perfil.html"><i class="fas fa-user"></i><span>Perfil</span></a></li>
-                        <li><a href="pages/configuracao.html"><i class="fas fa-cog"></i><span>Configurações</span></a></li>
-                    </ul>
-                </nav>
-            </div>
-
-            <!-- Suporte -->
-            <div class="sidebar-secao">
-                <h3 class="sidebar-titulo">Suporte</h3>
-                <nav class="menu-navegacao">
-                    <ul>
-                        <li><a href="pages/feedback.html"><i class="fas fa-envelope"></i><span>Feedback</span></a></li>
-                        <li><a href="pages/ajuda.html"><i class="fas fa-question-circle"></i><span>Ajuda</span></a></li>
+                        <li><a href="pages/perfil.html"><i class="fas fa-user"></i> <span>Perfil</span></a></li>
+                        <li><a href="pages/configuracao.html"><i class="fas fa-cog"></i> <span>Configurações</span></a></li>
+                        <li><a href="pages/login.html"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a></li>
                     </ul>
                 </nav>
             </div>
         </aside>
 
-        <!-- Overlay para fechar o drawer -->
+        <!-- Overlay para mobile -->
         <div class="drawer-overlay" id="drawerOverlay"></div>
 
-        <!-- Conteúdo -->
+        <!-- Conteúdo Principal -->
         <main class="conteudo-principal">
-
+            <!-- Barra Superior com Busca -->
             <header class="barra-superior">
                 <div class="container-busca">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="BUSCAR" class="campo-busca" autocomplete="off">
+                    <input type="text" class="campo-busca" placeholder="PESQUISAR JOGOS...">
                 </div>
             </header>
 
-            <!-- Breadcrumb -->
-            <nav class="breadcrumb" aria-label="Navegação">
-                <i class="fas fa-home"></i>
-                <span>Início</span>
-            </nav>
-
-            <!-- Hero -->
+            <!-- Destaque Hero (Logo + Carrossel) -->
             <section class="destaque">
                 <div class="logo-hero">
-                    <img src="assets/img/logo.png" alt="Game Search Logo" class="logo-principal">
+                    <img src="assets/img/logo2.png" alt="Logo Hero" class="logo-principal">
                 </div>
 
-                <div class="carousel-wrapper" role="region" aria-label="Destaques em carrossel">
+                <div class="carousel-wrapper">
                     <div class="carousel-track-container">
                         <div class="carousel-track" id="carouselTrack">
-                            <article class="carousel-slide">
+                            <!-- Slides serão inseridos ou já estão aqui -->
+                            <div class="carousel-slide">
                                 <div class="carousel-img-wrap">
-                                    <img src="https://assets.goal.com/images/v3/bltb237897dfa1e5afa/F077DBEWIAYzW5L.jpg" alt="Destaque 1" loading="lazy">
+                                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1000" alt="E-sports">
                                 </div>
-                                <p class="carousel-caption">The Witcher 4 — Unreal Engine 5</p>
-                            </article>
-                            <article class="carousel-slide">
+                                <div class="carousel-caption">Novidades do mundo E-sports</div>
+                            </div>
+                            <div class="carousel-slide">
                                 <div class="carousel-img-wrap">
-                                    <img src="https://img.youtube.com/vi/XhP3Xh4LMA8/maxresdefault.jpg" alt="Destaque 2" loading="lazy">
+                                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=1000" alt="Lançamentos">
                                 </div>
-                                <p class="carousel-caption">The Witcher 4 — Mundo Aberto</p>
-                            </article>
+                                <div class="carousel-caption">Confira os lançamentos do mês</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="carousel-img-wrap">
+                                    <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=1000" alt="Hardware">
+                                </div>
+                                <div class="carousel-caption">Melhores setups para 2024</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="carousel-indicators" id="carouselIndicators" role="tablist"></div>
+                    <div class="carousel-indicators" id="carouselIndicators"></div>
                 </div>
             </section>
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <i class="fas fa-chevron-right"></i>
+                <span>Início</span>
+            </div>
+
             <!-- Filtros -->
-            <section class="secao-filtros" aria-label="Filtros de jogos">
+            <section class="secao-filtros">
                 <div class="barra-filtro">
-                    <button class="botao-filtro-principal ativo" data-menu="menu-categorias" aria-haspopup="true">
-                        <i class="fas fa-th-large"></i> todos
+                    <button class="botao-filtro-principal" data-menu="menu-categorias">
+                        <i class="fas fa-th-large"></i> Categorias
                     </button>
-                    <button class="botao-filtro-principal" data-menu="menu-plataforma" aria-haspopup="true">
-                        <i class="fas fa-gamepad"></i> plataforma
+                    <button class="botao-filtro-principal" data-menu="menu-plataforma">
+                        <i class="fas fa-gamepad"></i> Plataforma
                     </button>
-                    <button class="botao-filtro-principal" data-menu="menu-genero" aria-haspopup="true">
-                        <i class="fas fa-ghost"></i> gênero
+                    <button class="botao-filtro-principal" data-menu="menu-genero">
+                        <i class="fas fa-ghost"></i> Gênero
                     </button>
-                    <button class="botao-filtro-principal" data-menu="menu-etaria" aria-haspopup="true">
-                        <i class="fas fa-users"></i> classificação
+                    <button class="botao-filtro-principal" data-menu="menu-etaria">
+                        <i class="fas fa-user-shield"></i> Etária
                     </button>
-                    <button class="botao-filtro-principal" data-menu="menu-ano" aria-haspopup="true">
-                        <i class="fas fa-calendar-alt"></i> ano
+                    <button class="botao-filtro-principal" data-menu="menu-ano">
+                        <i class="fas fa-calendar-alt"></i> Ano
                     </button>
-                    <button class="botao-filtro-principal" data-menu="menu-preco" aria-haspopup="true">
-                        <i class="fas fa-dollar-sign"></i> preço
+                    <button class="botao-filtro-principal" data-menu="menu-preco">
+                        <i class="fas fa-tag"></i> Preço
                     </button>
 
-                    <div id="menu-categorias" class="menu-flutuante" role="menu">
-                        <button class="opcao-filtro selecionada" data-filtro="todos">todos</button>
-                        <button class="opcao-filtro" data-filtro="ação">ação</button>
-                        <button class="opcao-filtro" data-filtro="aventura">aventura</button>
-                        <button class="opcao-filtro" data-filtro="rpg">rpg</button>
-                        <button class="opcao-filtro" data-filtro="indie">indie</button>
-                        <button class="opcao-filtro" data-filtro="estratégia">estratégia</button>
-                        <button class="opcao-filtro" data-filtro="roguelike">roguelike</button>
-                        <button class="opcao-filtro" data-filtro="esporte">esporte</button>
-                        <button class="opcao-filtro" data-filtro="terror">terror</button>
-                        <button class="opcao-filtro" data-filtro="multiplayer">multiplayer</button>
+                    <!-- Menus Flutuantes -->
+                    <div class="menu-flutuante" id="menu-categorias">
+                        <button class="opcao-filtro selecionada" data-filtro="todos">Todos</button>
+                        <button class="opcao-filtro" data-filtro="acao">Ação</button>
+                        <button class="opcao-filtro" data-filtro="aventura">Aventura</button>
+                        <button class="opcao-filtro" data-filtro="rpg">RPG</button>
                     </div>
-
-                    <div id="menu-plataforma" class="menu-flutuante" role="menu">
-                        <button class="opcao-filtro selecionada" data-filtro="todos">todos</button>
+                    <div class="menu-flutuante" id="menu-plataforma">
+                        <button class="opcao-filtro selecionada" data-filtro="todos">Todas</button>
                         <button class="opcao-filtro" data-filtro="pc">PC</button>
-                        <button class="opcao-filtro" data-filtro="ps5">PlayStation 5</button>
-                        <button class="opcao-filtro" data-filtro="xbox">Xbox</button>
-                        <button class="opcao-filtro" data-filtro="mobile">Mobile</button>
-                        <button class="opcao-filtro" data-filtro="switch">Switch</button>
+                        <button class="opcao-filtro" data-filtro="ps5">PS5</button>
+                        <button class="opcao-filtro" data-filtro="xbox">Xbox Series</button>
                     </div>
-
-                    <div id="menu-genero" class="menu-flutuante" role="menu">
-                        <button class="opcao-filtro selecionada" data-filtro="todos">todos</button>
-                        <button class="opcao-filtro" data-filtro="ação">ação</button>
-                        <button class="opcao-filtro" data-filtro="sandbox">sandbox</button>
-                        <button class="opcao-filtro" data-filtro="simulação">simulação</button>
-                        <button class="opcao-filtro" data-filtro="terror">terror</button>
-                        <button class="opcao-filtro" data-filtro="social">social</button>
-                        <button class="opcao-filtro" data-filtro="esporte">esporte</button>
-                        <button class="opcao-filtro" data-filtro="roguelike">roguelike</button>
-                        <button class="opcao-filtro" data-filtro="estratégia">estratégia</button>
+                    <div class="menu-flutuante" id="menu-genero">
+                        <button class="opcao-filtro selecionada" data-filtro="todos">Todos</button>
+                        <button class="opcao-filtro" data-filtro="fps">FPS</button>
+                        <button class="opcao-filtro" data-filtro="moba">MOBA</button>
+                        <button class="opcao-filtro" data-filtro="terror">Terror</button>
                     </div>
-                    <div id="menu-etaria" class="menu-flutuante" role="menu">
-                        <button class="opcao-filtro selecionada" data-filtro="todos">todos</button>
+                    <div class="menu-flutuante" id="menu-etaria">
+                        <button class="opcao-filtro selecionada" data-filtro="todos">Todas</button>
                         <button class="opcao-filtro" data-filtro="L">Livre</button>
-                        <button class="opcao-filtro" data-filtro="10">10+</button>
-                        <button class="opcao-filtro" data-filtro="12">12+</button>
-                        <button class="opcao-filtro" data-filtro="14">14+</button>
-                        <button class="opcao-filtro" data-filtro="16">16+</button>
                         <button class="opcao-filtro" data-filtro="18">18+</button>
                     </div>
-
-                    <div id="menu-ano" class="menu-flutuante" role="menu">
-                        <button class="opcao-filtro selecionada" data-filtro="todos">todos</button>
+                    <div class="menu-flutuante" id="menu-ano">
+                        <button class="opcao-filtro selecionada" data-filtro="todos">Todos</button>
                         <button class="opcao-filtro" data-filtro="2024">2024</button>
                         <button class="opcao-filtro" data-filtro="2023">2023</button>
-                        <button class="opcao-filtro" data-filtro="2022">2022</button>
-                        <button class="opcao-filtro" data-filtro="2021">2021</button>
-                        <button class="opcao-filtro" data-filtro="2020">2020</button>
-                        <button class="opcao-filtro" data-filtro="2019">2019</button>
-                        <button class="opcao-filtro" data-filtro="2018">2018</button>
-                        <button class="opcao-filtro" data-filtro="2017">2017</button>
                     </div>
-
-                    <div id="menu-preco" class="menu-flutuante" role="menu">
-                        <button class="opcao-filtro selecionada" data-filtro="todos">todos</button>
-                        <button class="opcao-filtro" data-filtro="gratis">Gratuito</button>
-                        <button class="opcao-filtro" data-filtro="baixo">Até R$ 50</button>
-                        <button class="opcao-filtro" data-filtro="medio">R$ 50 - R$ 150</button>
-                        <button class="opcao-filtro" data-filtro="alto">Acima de R$ 150</button>
+                    <div class="menu-flutuante" id="menu-preco">
+                        <button class="opcao-filtro selecionada" data-filtro="todos">Todos</button>
+                        <button class="opcao-filtro" data-filtro="gratis">Grátis</button>
+                        <button class="opcao-filtro" data-filtro="baixo">Até R$ 150</button>
+                        <button class="opcao-filtro" data-filtro="alto">Acima R$ 150</button>
                     </div>
-
-
-
-
-
                 </div>
             </section>
 
             <!-- Grade de Jogos -->
-            <section class="grade-jogos" aria-label="Jogos disponíveis">
-                <!-- Renderizado via home.js -->
-            </section>
-
+            <div class="grade-jogos" id="gradeJogos">
+                <!-- Jogos serão carregados via JS -->
+            </div>
         </main>
     </div>
 
-    <!-- Overlay do Card Expandido -->
-    <div class="card-overlay" id="cardOverlay"></div>
-
-    <!-- Botão Hambúrguer -->
-    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false">
+    <!-- Botão Hamburger Mobile -->
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu">
         <i class="fas fa-bars"></i>
     </button>
 
     <script src="assets/js/global.js"></script>
     <script src="assets/js/home.js"></script>
-    <script src="assets/js/home-moderna.js"></script>
     <!-- PixelBlast Background Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="assets/js/PixelBlast.js"></script>

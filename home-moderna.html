@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-path" content="">
+    <title>Game Search — Home Moderna</title>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/PixelBlast.css">
+    <link rel="stylesheet" href="assets/css/home-moderna.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos específicos para a home-moderna se necessário */
+        body {
+            overflow-x: hidden;
+            background: #0d0d1f;
+        }
+        
+        .layout-principal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <img src="assets/img/logo.png" alt="Logo" class="splash-logo">
+    </div>
+
+    <!-- Cursor Gamer -->
+    <div class="cursor-gamer"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Background Animado -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="layout-principal">
+        <!-- Hero Section Moderna -->
+        <section class="hero-moderna fade-in">
+            <h1 class="hero-titulo">Game Search</h1>
+            <div class="texto-rotativo">
+                <span class="typing-text"></span>
+            </div>
+            <p style="color: var(--cor-texto-muted); max-width: 600px; text-align: center;">Explore milhares de títulos, acompanhe lançamentos e encontre sua próxima grande experiência gamer em um só lugar.</p>
+            <div style="margin-top: 30px;">
+                <a href="index.html" class="botao-detalhes hover-scale">Entrar na Plataforma</a>
+            </div>
+        </section>
+
+        <!-- Carrossel de Logotipos -->
+        <div class="logos-container fade-in">
+            <div class="logos-track">
+                <!-- Logos (Duplicados para loop infinito) -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg" alt="PlayStation" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg" alt="Xbox" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" alt="Steam" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Epic_Games_logo.svg" alt="Epic Games" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Electronic_Arts_logo.svg" alt="EA" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Ubisoft_logo.svg" alt="Ubisoft" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/en/2/23/Battle.net_Logo.svg" alt="Battle.net" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Nintendo_logo.svg" alt="Nintendo" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Discord_Color_Text_Logo.svg" alt="Discord" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Rockstar_Games_Logo.svg" alt="Rockstar" class="logo-item">
+                <!-- Duplicate for loop -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg" alt="PlayStation" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg" alt="Xbox" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" alt="Steam" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Epic_Games_logo.svg" alt="Epic Games" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Electronic_Arts_logo.svg" alt="EA" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Ubisoft_logo.svg" alt="Ubisoft" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/en/2/23/Battle.net_Logo.svg" alt="Battle.net" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Nintendo_logo.svg" alt="Nintendo" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Discord_Color_Text_Logo.svg" alt="Discord" class="logo-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Rockstar_Games_Logo.svg" alt="Rockstar" class="logo-item">
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/home-moderna.js"></script>
+</body>
+
+</html>
