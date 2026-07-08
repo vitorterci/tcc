@@ -314,26 +314,29 @@
                  position: sticky;
                  top: 0;
                  z-index: 100;
-                 padding: 8px 0;
+                 padding: 12px 0;
                  backdrop-filter: blur(12px);
                  -webkit-backdrop-filter: blur(12px);
+                 animation: fadeInDown 0.8s ease-out;
              }
              
              .container-busca {
-                 background-color: var(--cor-primaria);
+                 background: linear-gradient(135deg, var(--cor-primaria), var(--cor-primaria-hover));
                  width: 50%;
-                 padding: 10px 20px;
+                 padding: 12px 24px;
                  border-radius: var(--border-radius-xl);
                  display: flex;
                  align-items: center;
-                 gap: 10px;
-                 box-shadow: var(--shadow-glow);
-                 transition: box-shadow var(--transition-speed) ease, transform var(--transition-speed) ease;
+                 gap: 12px;
+                 box-shadow: var(--shadow-glow), 0 4px 20px rgba(46, 0, 230, 0.2);
+                 transition: box-shadow var(--transition-speed) ease, transform var(--transition-speed) ease, border-color var(--transition-speed) ease;
+                 border: 1px solid rgba(255, 255, 255, 0.15);
              }
              
              .container-busca:focus-within {
-                 box-shadow: var(--shadow-glow-hover);
-                 transform: scale(1.01);
+                 box-shadow: var(--shadow-glow-hover), 0 8px 30px rgba(46, 0, 230, 0.3);
+                 transform: scale(1.02);
+                 border-color: rgba(255, 255, 255, 0.3);
              }
              
              .container-busca i {
@@ -1234,4 +1237,38 @@
              .carousel-caption {
                  background: linear-gradient(to right, rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.22), rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.04));
                  color: rgba(255, 255, 255, 0)
+             }
+
+
+             /* ─── ANIMAÇÕES DE ENTRADA ──────────────────────────────────────────────── */
+             
+             @keyframes fadeInDown {
+                 from {
+                     opacity: 0;
+                     transform: translateY(-10px);
+                 }
+                 to {
+                     opacity: 1;
+                     transform: translateY(0);
+                 }
+             }
+             
+             @keyframes fadeInUp {
+                 from {
+                     opacity: 0;
+                     transform: translateY(20px);
+                 }
+                 to {
+                     opacity: 1;
+                     transform: translateY(0);
+                 }
+             }
+             
+             @keyframes fadeIn {
+                 from {
+                     opacity: 0;
+                 }
+                 to {
+                     opacity: 1;
+                 }
              }

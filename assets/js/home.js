@@ -73,7 +73,7 @@ function renderizarJogos(lista) {
         <article 
             class="card-jogo animar-entrada" 
             data-id="${jogo.id}"
-            style="animation-delay:${i * 0.06}s"
+            style="animation-delay:${i * 0.08}s"
         >
             <div class="card-jogo-sidebar">
                 <img 

@@ -20,6 +20,7 @@
             align-items: center;
             gap: 50px;
             margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out;
         }
         
         .logo-hero {
@@ -29,13 +30,13 @@
         .logo-principal {
             width: 300px;
             filter: drop-shadow(0 0 14px var(--cor-primaria));
-            opacity: 0.8;
-            transition: transform var(--transition-speed) ease, filter var(--transition-speed) ease;
+            opacity: 0.9;
+            transition: transform var(--transition-speed) ease, filter var(--transition-speed) ease, opacity var(--transition-speed) ease;
         }
         
         .logo-principal:hover {
-            transform: scale(1.04);
-            filter: drop-shadow(0 0 22px var(--cor-primaria));
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 28px var(--cor-primaria));
             opacity: 1;
         }
         /* ── Breadcrumb ── */
@@ -75,6 +76,7 @@
             overflow: hidden;
             background: #08081a;
             box-shadow: 0 0 0 1px var(--cor-borda), 0 20px 50px rgba(0, 0, 0, 0.7), var(--shadow-glow);
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
         }
         
         .carousel-track {
@@ -94,7 +96,16 @@
             width: 100%;
             aspect-ratio: 16 / 9;
             overflow: hidden;
-            background: #000;
+            background: linear-gradient(135deg, #0d0d1f 0%, #1a1a2e 100%);
+            position: relative;
+        }
+        
+        .carousel-img-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(46, 0, 230, 0.15), transparent 50%, rgba(46, 0, 230, 0.1));
+            pointer-events: none;
         }
         
         .carousel-img-wrap img {
@@ -102,19 +113,25 @@
             height: 100%;
             object-fit: contain;
             display: block;
+            transition: transform 0.6s ease;
+        }
+        
+        .carousel-slide:hover .carousel-img-wrap img {
+            transform: scale(1.02);
         }
         
         .carousel-caption {
-            background: linear-gradient(to right, rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.22), rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.04));
-            color: rgba(255, 255, 255, 0.8);
+            background: linear-gradient(to right, rgba(46, 0, 230, 0.3), rgba(46, 0, 230, 0.1));
+            color: rgba(255, 255, 255, 0.9);
             text-align: center;
             font-family: var(--font-corpo);
             font-size: var(--fs-xs);
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 0.09em;
             text-transform: uppercase;
-            padding: 10px 16px;
-            border-top: 1px solid var(--cor-borda);
+            padding: 12px 16px;
+            border-top: 1px solid rgba(46, 0, 230, 0.3);
+            transition: all var(--transition-speed) ease;
         }
         
         .carousel-indicators {
@@ -125,11 +142,11 @@
         }
         
         .carousel-indicator {
-            height: 3px;
+            height: 4px;
             width: 32px;
             border-radius: 2px;
             border: none;
-            background-color: rgba(255, 255, 255, 0.15);
+            background-color: rgba(255, 255, 255, 0.2);
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -138,7 +155,7 @@
         
         .carousel-indicator.ativo {
             width: 52px;
-            background-color: rgba(46, 0, 230, 0.25);
+            background-color: rgba(46, 0, 230, 0.4);
         }
         
         .carousel-indicator.ativo::after {
@@ -171,19 +188,21 @@
         
         .barra-filtro {
             background-color: var(--cor-lateral);
-            padding: 10px 16px;
+            padding: 12px 16px;
             border-radius: var(--border-radius-xl);
             display: flex;
             gap: 10px;
             align-items: center;
             position: relative;
             border: 1px solid var(--cor-borda);
+            box-shadow: 0 4px 12px rgba(46, 0, 230, 0.1);
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
         }
         
         .botao-filtro-principal {
             background-color: var(--cor-tag);
             color: var(--cor-texto);
-            border: 1px solid transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 8px 18px;
             border-radius: var(--border-radius-lg);
             cursor: pointer;
@@ -195,14 +214,20 @@
             display: flex;
             align-items: center;
             gap: 7px;
-            transition: all var(--transition-speed) ease;
+            transition: all var(--transition-fast) ease;
         }
         
-        .botao-filtro-principal:hover,
+        .botao-filtro-principal:hover {
+            background-color: rgba(46, 0, 230, 0.3);
+            border-color: var(--cor-primaria);
+            transform: translateY(-2px);
+        }
+        
         .botao-filtro-principal.ativo {
-            background-color: var(--cor-primaria);
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-primaria-hover));
             border-color: var(--cor-primaria);
             box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
         }
         
         .menu-flutuante {
@@ -216,10 +241,11 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 8px;
             z-index: 300;
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 20px rgba(46, 0, 230, 0.15);
             min-width: 440px;
-            border: 1px solid var(--cor-borda-forte);
+            border: 1px solid rgba(46, 0, 230, 0.3);
             animation: fadeIn 0.18s ease;
+            backdrop-filter: blur(8px);
         }
         
         .menu-flutuante.show {
@@ -229,7 +255,7 @@
         .opcao-filtro {
             background-color: var(--cor-tag);
             color: var(--cor-texto);
-            border: 1px solid transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 9px 12px;
             border-radius: var(--border-radius-sm);
             cursor: pointer;
@@ -240,10 +266,16 @@
             transition: all var(--transition-fast) ease;
         }
         
-        .opcao-filtro:hover,
-        .opcao-filtro.selecionada {
-            background-color: var(--cor-primaria);
+        .opcao-filtro:hover {
+            background-color: rgba(46, 0, 230, 0.3);
             border-color: var(--cor-primaria);
+            transform: translateY(-1px);
+        }
+        
+        .opcao-filtro.selecionada {
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-primaria-hover));
+            border-color: var(--cor-primaria);
+            box-shadow: 0 0 12px rgba(46, 0, 230, 0.4);
         }
         /* ── Grade de jogos ── */
         
@@ -274,6 +306,8 @@
             grid-column: span 1;
             width: 100%;
             /* Garante que o card ocupe o espaço do grid */
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out forwards;
         }
         
         .card-jogo.open {
@@ -281,8 +315,8 @@
         }
         
         .card-jogo:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: var(--shadow-glow-hover), 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-10px) scale(1.04);
+            box-shadow: var(--shadow-glow-hover), 0 15px 40px rgba(0, 0, 0, 0.6);
             border-color: var(--cor-primaria);
             z-index: 10;
         }
@@ -397,6 +431,11 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.6s ease;
+        }
+        
+        .card-jogo:hover .card-jogo-sidebar img {
+            transform: scale(1.08);
         }
         
         .card-jogo-sidebar .badge-etaria {
@@ -543,11 +582,11 @@
         
         .botao-detalhes {
             align-self: flex-start;
-            background: var(--cor-primaria);
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-primaria-hover));
             color: var(--cor-texto);
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--border-radius-xl);
-            padding: 6px 18px;
+            padding: 8px 20px;
             font-family: var(--font-corpo);
             font-weight: 700;
             font-size: var(--fs-xs);
@@ -558,12 +597,13 @@
             align-items: center;
             gap: 6px;
             margin-top: auto;
+            box-shadow: 0 0 12px rgba(46, 0, 230, 0.3);
         }
         
         .botao-detalhes:hover {
-            background: var(--cor-primaria-hover);
-            box-shadow: var(--shadow-glow);
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, var(--cor-primaria-hover), #6a2fff);
+            box-shadow: var(--shadow-glow-hover);
+            transform: translateY(-3px);
         }
         
         .botao-detalhes i {
@@ -675,6 +715,26 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
             }
         }
     </style>
