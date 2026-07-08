@@ -97,42 +97,51 @@
     50% { opacity: 0; }
 }
 
-/* ── Carrossel Infinito de Logos ── */
-.logos-container {
+/* ── Banner de Logotipos (3 Linhas de Fundo) ── */
+.logos-banner {
     width: 100%;
     overflow: hidden;
-    padding: 60px 0;
-    background: rgba(0, 0, 0, 0.3);
-    margin: 40px 0;
+    padding: 40px 0;
+    background: rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .logos-track {
     display: flex;
-    gap: 80px;
+    gap: 60px;
     width: max-content;
-    animation: scrollLogos 30s linear infinite;
 }
 
-.logos-track:hover {
-    animation-play-state: paused;
-}
+.track-row-1 { animation: scrollLeft 40s linear infinite; }
+.track-row-2 { animation: scrollRight 50s linear infinite; }
+.track-row-3 { animation: scrollLeft 45s linear infinite; }
 
 .logo-item {
-    height: 40px;
+    height: 35px;
     filter: grayscale(1) brightness(2);
-    opacity: 0.6;
+    opacity: 0.4;
     transition: all 0.3s ease;
 }
 
 .logo-item:hover {
     filter: grayscale(0) brightness(1);
-    opacity: 1;
+    opacity: 0.8;
     transform: scale(1.1);
 }
 
-@keyframes scrollLogos {
+@keyframes scrollLeft {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
+}
+
+@keyframes scrollRight {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
 }
 
 /* ── Microanimações ── */
