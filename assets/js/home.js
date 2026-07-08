@@ -352,3 +352,92 @@ document.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
     carregarJogos();
 });
+
+
+// ── Função para carregar jogos nas seções da Home moderna ──────────────────
+function carregarJogosNasSecoes() {
+    const gradeDestaques = document.getElementById('grade-destaques');
+    const gradePopulares = document.getElementById('grade-populares');
+    const gradeProximos = document.getElementById('grade-proximos');
+
+    if (gradeDestaques && listaDeJogos.length > 0) {
+        gradeDestaques.innerHTML = listaDeJogos.slice(0, 4).map((jogo, i) => criarCardParaSecao(jogo, i)).join('');
+    }
+
+    if (gradePopulares && listaDeJogos.length > 0) {
+        gradePopulares.innerHTML = listaDeJogos.slice(4, 8).map((jogo, i) => criarCardParaSecao(jogo, i)).join('');
+    }
+
+    if (gradeProximos && listaDeJogos.length > 0) {
+        gradeProximos.innerHTML = listaDeJogos.slice(8, 12).map((jogo, i) => criarCardParaSecao(jogo, i)).join('');
+    }
+
+    adicionarEventosCards();
+}
+
+// ── Função para criar card para as seções ────────────────────────────────────
+function criarCardParaSecao(jogo, index) {
+    const precoNum = typeof jogo.preco === 'string' ? parseFloat(jogo.preco) : jogo.preco;
+    let precoClasse = '';
+    let precoTexto = '';
+
+    if (precoNum === 0) {
+        precoClasse = 'gratis';
+        precoTexto = 'Grátis';
+    } else if (precoNum <= 50) {
+        precoClasse = 'baixo';
+        precoTexto = `R$ ${formatarPreco(precoNum)}`;
+    } else if (precoNum <= 150) {
+        precoClasse = 'medio';
+        precoTexto = `R$ ${formatarPreco(precoNum)}`;
+    } else {
+        precoClasse = 'alto';
+        precoTexto = `R$ ${formatarPreco(precoNum)}`;
+    }
+
+    return `
+        <article 
+            class="card-jogo animar-entrada" 
+            data-id="${jogo.id}"
+            style="animation-delay:${index * 0.08}s"
+        >
+            <div class="card-jogo-sidebar">
+                <img 
+                    src="${jogo.img}" 
+                    alt="${jogo.nome}" 
+                    loading="lazy"
+                    onerror="this.src='assets/img/naoencontrada.png'"
+                >
+                <span class="badge-etaria etaria-${jogo.etaria || 'L'}">${jogo.etaria || 'L'}</span>
+            </div>
+            
+            <div class="card-jogo-content">
+                <h2 class="card-jogo-titulo">${jogo.nome}</h2>
+                <p class="card-jogo-descricao">${jogo.descricao}</p>
+                
+                <div class="card-jogo-info">
+                    <span class="info-tag"><i class="fas fa-tag"></i> ${jogo.categoria}</span>
+                    <span class="info-tag"><i class="fas fa-gamepad"></i> ${jogo.genero}</span>
+                    <span class="info-tag"><i class="fas fa-desktop"></i> ${jogo.plataforma}</span>
+                    <span class="info-tag info-status ${jogo.status === 'Disponível' ? 'status-disponivel' : 'status-em-breve'}">
+                        <i class="fas fa-circle"></i> ${jogo.status}
+                    </span>
+                </div>
+                
+                <button class="botao-detalhes" data-id="${jogo.id}">
+                    <span>Ver Detalhes</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    `;
+}
+
+// ── Atualizar o DOMContentLoaded para carregar seções ───────────────────────
+const originalDOMContentLoaded = document.addEventListener.bind(document);
+document.addEventListener('DOMContentLoaded', () => {
+    carregarJogos();
+    setTimeout(() => {
+        carregarJogosNasSecoes();
+    }, 500);
+});
